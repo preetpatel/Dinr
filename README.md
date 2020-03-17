@@ -27,7 +27,3 @@ yarn ios
 ```
 yarn android
 ```
-
-## Legal assets
-
-[Licensing](./LICENSE.md)
