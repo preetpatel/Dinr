@@ -30,4 +30,4 @@ yarn android
 
 ## Legal assets
 
-[Licensing](LICENSE.md)
+[Licensing](./LICENSE.md)
