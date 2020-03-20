@@ -8,7 +8,7 @@ const instructions = Platform.select({
     "Shake or press menu button for dev menu"
 });
 
-export const HomeScreen = () => {
+export const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Welcome to ASMR!</Text>
