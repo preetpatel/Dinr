@@ -16,7 +16,7 @@ before running ASMR on ios, you will need to install all the Pods. Make sure you
 cd ios && pod install && cd ..
 ```
 
-### Run on iOS
+### Run on iOS (Only available on MacOS. You will need to have XCode installed together with Command Line Tools)
 
 ```
 yarn ios
