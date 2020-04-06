@@ -1,4 +1,4 @@
-# Welcome to ASMR
+# Welcome to Dinr
 
 ## Usage
 
