@@ -31,7 +31,7 @@ jobs:
           yarn install --frozen-lockfile
       - name: Install pod dependencies
         run: |
-          cd ios && pod install && cd ..
+          cd mobile-app && cd ios && pod install && cd ..
       - name: Run tests
         run: |       
           yarn test
