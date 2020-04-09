@@ -1,8 +1,53 @@
 #################################
-# ASMR Project Specific GITIGNORE
+# Dinr Project Specific GITIGNORE
 #################################
 
 .env
+
+# Bundle artifact
+*.jsbundle
+
+# CocoaPods
+/ios/Pods/
+
+# XCode
+ios/ASMR.xcworkspace/xcshareddata/
+*.dSYM.zip
+
+# Build assets
+/android/app/src/main/assets
+
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
 
 # Android/IntelliJ
 #
