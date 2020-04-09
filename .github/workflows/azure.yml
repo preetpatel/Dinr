@@ -30,12 +30,15 @@ jobs:
     - name: Install dependencies
       run: |
         yarn install --frozen-lockfile
-        working-directory: ./server
-    - name: Build and test
-    - run: |
+      working-directory: ./server
+    - name: Build
+      run: |
         yarn run build --if-present
+      working-directory: ./server
+    - name: Test
+      run: |
         yarn test --if-present
-        working-directory: ./server
+      working-directory: ./server
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with:
