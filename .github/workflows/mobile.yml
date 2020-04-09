@@ -19,9 +19,11 @@ jobs:
       - name: Install yarn dependencies
         run: |
           yarn install --frozen-lockfile
+        working-directory: ./mobile-app
       - name: Run tests
         run: |
           yarn test
+        working-directory: ./mobile-app
   build-ios:
     runs-on: macos-latest
     steps: 
@@ -29,9 +31,12 @@ jobs:
       - name: Install yarn dependencies
         run: |
           yarn install --frozen-lockfile
+        working-directory: ./mobile-app
       - name: Install pod dependencies
         run: |
-          cd mobile-app && cd ios && pod install && cd ..
+          cd ios && pod install && cd ..
+        working-directory: ./mobile-app
       - name: Run tests
         run: |       
           yarn test
+        working-directory: ./mobile-app
