@@ -1,5 +1,5 @@
 # Dinr - Because restaurants can't swipe left!
-#### Presented by Blue Butterfly (Group 3)
+*Presented by Blue Butterfly (Group 3)*
 
 Dinr is a mobile application that makes choosing a restaurant to eat at easier for all the indecisive people out there. Simply join a session with a group of friends and swipe away at restaurants. When the time is up, discover your group's top picks.
 
