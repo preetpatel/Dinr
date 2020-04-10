@@ -1,3 +1,6 @@
+![Build Android and iOS](https://github.com/PreetPatel/Dinr/workflows/Build%20Android%20and%20iOS/badge.svg)
+![Build server](https://github.com/PreetPatel/Dinr/workflows/Build%20server/badge.svg)
+
 # Welcome to Dinr 
 ### Because restaurants can't swipe left!
 ###### _Presented by Blue Butterfly (Group 3)_
