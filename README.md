@@ -4,7 +4,7 @@
 # Welcome to Dinr 
 ### Because restaurants can't swipe left!
 
-Dinr is a mobile application that makes choosing a restaurant to eat at easier for all the indecisive people out there. Simply join a session with a group of friends and swipe away at restaurants. When the time is up, discover your group's top picks.
+Dinr is a mobile application that makes it easier to discover new restaurants and decide on where to eat (for all the indecisive people out there). Simply set up a session, invite your friends and swipe away. When the time is up, the application will recommend the three top restaurants based off all your preferences.
 
 This application was developed as a submission for our group project in the _SOFTENG 750: Software Development Methodologies_ course. For more information about this project and the application, you can refer to our [Wiki.](https://github.com/PreetPatel/Dinr/wiki)
 
