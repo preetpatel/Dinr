@@ -7,7 +7,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "expo": "~36.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -29,6 +28,5 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true,
-  "proxy": "http://192.168.1.254:4000/"
+  "private": true
 }
