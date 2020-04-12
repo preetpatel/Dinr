@@ -1,8 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, TextInput } from "react-native";
+import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from "react-native";
 
 export const HomeScreen: React.FC = () => {
-  const [code, onCodeChange] = React.useState("");
+  const [code, changeCode] = React.useState("");
+  const [invalidCode, changeCodeInvalid] = React.useState(false);
+
+  const joinButtonPress = () => {
+    // TODO: Change this functionality later to validate session code
+    if (code !== "") {
+      changeCodeInvalid(true);
+    }
+  }
+
+  const newSessionPress = () => {
+    // TODO: Add change screen functionality here
+  }
 
   return (
     <View style={styles.mainContainer}>
@@ -12,22 +24,23 @@ export const HomeScreen: React.FC = () => {
       </View>
       <View style={{flex: 1, justifyContent: "space-between"}}>
         <View style={{marginTop: 30}}>
-          <View style={styles.codeInput}>
+          <View style={invalidCode ? [styles.codeInput, styles.invalidCodeBorder]: styles.codeInput}>
             <Image source={require("../images/fork-knife.png")} style={styles.forkKnife}/>
             <TextInput 
               style={styles.textInput} value={code} 
               placeholder={"Session Invite Code"} 
-              onChangeText={text => onCodeChange(text.trim())}
+              onChangeText={text => changeCode(text.trim())}
               placeholderTextColor={"#979797"}
             />
           </View>
-          <View style={code === "" ? styles.joinButtonDisabled : styles.joinButtonEnabled}>
+          <TouchableOpacity style={code === "" ? styles.buttonDisabled : styles.buttonEnabled} onPress={joinButtonPress}>
             <Text style={code === "" ? styles.disabledText : styles.enabledText}>Join</Text>
-          </View>
+          </TouchableOpacity>
+          { invalidCode && code ? <Text style={styles.invalidCodeText}>Invalid code! Please try again.</Text> : null }
         </View>
-        <View style={styles.joinButtonEnabled}>
+        <TouchableOpacity style={styles.buttonEnabled} onPress={newSessionPress}>
           <Text style={styles.enabledText}>Host a New Session</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -79,7 +92,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginRight: 58,
   },
-  joinButtonDisabled: {
+  buttonDisabled: {
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
@@ -93,7 +106,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFFFFF",
   },
-  joinButtonEnabled: {
+  buttonEnabled: {
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
@@ -106,5 +119,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#006607",
+  },
+  invalidCodeText: {
+    textAlign: "center",
+    fontSize: 15,
+    color: "#FF8900",
+    marginTop: 10
+  },
+  invalidCodeBorder: {
+    borderColor: "#FF8900",
+    borderWidth: 2,
   }
 });
