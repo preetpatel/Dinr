@@ -33,7 +33,11 @@ export const HomeScreen: React.FC = () => {
               placeholderTextColor={"#979797"}
             />
           </View>
-          <TouchableOpacity style={code === "" ? styles.buttonDisabled : styles.buttonEnabled} onPress={joinButtonPress}>
+          <TouchableOpacity 
+            style={code === "" ? styles.buttonDisabled : styles.buttonEnabled} 
+            onPress={joinButtonPress}
+            disabled={code === ""}
+          >
             <Text style={code === "" ? styles.disabledText : styles.enabledText}>Join</Text>
           </TouchableOpacity>
           { invalidCode && code ? <Text style={styles.invalidCodeText}>Invalid code! Please try again.</Text> : null }
