@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   saladPlates: {
-    width: 600,
+    width: 500,
     resizeMode: "contain",
     marginTop: 60,
     alignSelf: "center"
