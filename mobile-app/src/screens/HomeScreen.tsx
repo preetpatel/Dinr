@@ -38,12 +38,12 @@ export const HomeScreen: React.FC = () => {
             onPress={joinButtonPress}
             disabled={code === ""}
           >
-            <Text style={code === "" ? styles.disabledText : styles.enabledText}>Join</Text>
+            <Text style={code === "" ? styles.disabledButtonText : styles.enabledButtonText}>Join</Text>
           </TouchableOpacity>
           { invalidCode && code ? <Text style={styles.invalidCodeText}>Invalid code! Please try again.</Text> : null }
         </View>
         <TouchableOpacity style={styles.buttonEnabled} onPress={newSessionPress}>
-          <Text style={styles.enabledText}>Host a New Session</Text>
+          <Text style={styles.enabledButtonText}>Start a New Session</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -59,17 +59,21 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   tagline: {
+    fontFamily: "SFProDisplay-Bold",
     fontSize: 25,
     textAlign: "center",
-    fontWeight: "bold",
     color: "#FFFFFF",
     marginTop: 20,
   },
   saladPlates: {
     width: 500,
     resizeMode: "contain",
-    marginTop: 60,
-    alignSelf: "center"
+    marginTop: 40,
+    alignSelf: "center",
+    shadowColor: "#222222",
+    shadowOffset: { width: 10, height: 10},
+    shadowOpacity: 1,
+    shadowRadius: 6
   },
   codeInput: {
     borderRadius: 15,
@@ -89,6 +93,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   textInput: {
+    fontFamily: "SFProRounded-Bold",
     flex: 1,
     color: "#979797",
     fontWeight: "600",
@@ -105,9 +110,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  disabledText: {
+  disabledButtonText: {
+    fontFamily: "SFProDisplay-Medium",
     fontSize: 20,
-    fontWeight: "bold",
     color: "#FFFFFF",
   },
   buttonEnabled: {
@@ -119,19 +124,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  enabledText: {
+  enabledButtonText: {
+    fontFamily: "SFProDisplay-Medium",
     fontSize: 20,
-    fontWeight: "bold",
     color: "#006607",
   },
   invalidCodeText: {
+    fontFamily: "SFProText-Medium",
     textAlign: "center",
     fontSize: 15,
     color: "#FF8900",
-    marginTop: 10
+    marginTop: 15
   },
   invalidCodeBorder: {
     borderColor: "#FF8900",
-    borderWidth: 2,
+    borderWidth: 3,
   }
 });
