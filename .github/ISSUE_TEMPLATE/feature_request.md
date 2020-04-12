@@ -1,3 +1,12 @@
+---
+name: Feature Request
+about: Create a feature request
+title: ''
+labels: feature
+assignees: ''
+
+---
+
 **User Story**
 <!--As a [user role], I'd like to [do something], so that [some goal].-->
 
