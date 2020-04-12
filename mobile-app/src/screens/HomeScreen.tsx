@@ -18,6 +18,7 @@ export const HomeScreen: React.FC = () => {
               style={styles.textInput} value={code} 
               placeholder={"Session Invite Code"} 
               onChangeText={text => onCodeChange(text.trim())}
+              placeholderTextColor={"#979797"}
             />
           </View>
           <View style={code === "" ? styles.joinButtonDisabled : styles.joinButtonEnabled}>
