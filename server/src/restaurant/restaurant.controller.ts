@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { RestaurantService } from './restaurant.service';
+import { Restaurant } from 'src/models/restaurant';
 
 @Controller('restaurant')
 export class RestaurantController {
@@ -8,7 +9,7 @@ export class RestaurantController {
 
     //Getting information for a restaurant given its restaurant id
     @Get(':id')
-    getRestaurant(@Param() params) {
+    getRestaurant(@Param() params): Restaurant {
         console.log('Get a restaurant')
         return this.restaurantService.getRestaurant(params.id);
     }
