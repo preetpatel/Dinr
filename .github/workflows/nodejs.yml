@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    name: Test on node Ubuntu and ${{ matrix.os }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,9 +24,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd server
-    - run: yarn install --frozen-lockfile
-    - run: yarn run build --if-present
-    - run: yarn test
+    - run: npm install
+    - run: npm run start
+    - run: npm run test
       working-directory: ./server
       env:
         CI: true
