@@ -27,10 +27,6 @@ jobs:
       run: |
         npm install
       working-directory: ./server
-    - name: Build server
-      run: |
-        npm run start
-      working-directory: ./server
     - name: Run tests
       run: |
         npm run test
