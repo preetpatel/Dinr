@@ -15,7 +15,7 @@ on:
     branches: [ master ]
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
+  AZURE_WEBAPP_NAME: DinrServer    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '10.x'                # set this to the node version to use
 
@@ -31,17 +31,17 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
     - name: Install dependencies
       run: |
-        yarn install --frozen-lockfile
+        npm install
       working-directory: ./server
-    - name: Build
+    - name: Build server
       run: |
-        yarn run build --if-present
+        npm run build
       working-directory: ./server
-    - name: Test
+    - name: Run tests
       run: |
-        yarn test --if-present
+        npm run test
       working-directory: ./server
-    - name: 'Deploy to Azure WebApp'
+    - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
