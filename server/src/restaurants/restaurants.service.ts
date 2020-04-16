@@ -15,7 +15,7 @@ export class RestaurantsService {
     };
 
 
-    getRestaurants(lat: number, lon: number, distanceMod: number) {
+    getRestaurantsForLocation(lat: number, lon: number): Restaurant[] {
 
         let restaurants: Restaurant[] = [];
 
@@ -24,64 +24,38 @@ export class RestaurantsService {
 
             res.data.nearby_restaurants.forEach(location => {
                 // console.log(location.restaurant.name);
-                let res : Restaurant = this.settingRestaurantInfo(location.restaurant);  
+                let res : Restaurant = this.setRestaurantInfo(location.restaurant);  
                 restaurants.push(res);
             });
 
-            this.filterByCuisine();
-            this.filterByPrice();
-
-            restaurants.forEach(res => {
-                this.calculateDistanceToRestaurant(res); //sets distance on res object
-            });
-
-
-
+            return restaurants;
 
         })
         .catch(err => console.log(err));
 
+        return restaurants;
     }
 
-
-    settingRestaurantInfo(restaurantInfo: any, ): Restaurant {
+    setRestaurantInfo(data: any, ): Restaurant {
 
         let restaurant: Restaurant = new Restaurant;
         let rating: Rating = new Rating;
 
-        restaurant.name = restaurantInfo.name;
-        restaurant.id = restaurantInfo.id;
-        restaurant.address = restaurantInfo.location.address;
-        restaurant.image = restaurantInfo.thumb;
-        restaurant.priceRange = restaurantInfo.price_range;
-        rating.ratingNumber = restaurantInfo.user_rating.aggregate_rating;
-        rating.ratingText = restaurantInfo.user_rating.rating_text;
+        restaurant.name = data.name;
+        restaurant.id = data.id;
+        restaurant.address = data.location.address;
+        restaurant.image = data.thumb;
+        restaurant.priceRange = data.price_range;
+        rating.ratingNumber = data.user_rating.aggregate_rating;
+        rating.ratingText = data.user_rating.rating_text;
         restaurant.rating = rating;
-        restaurant.averageCostFor2 = `${restaurantInfo.currency}${restaurantInfo.average_cost_for_two}`;
-        restaurant.cuisine = restaurantInfo.cuisines;
-
-        // restaurant.distance = `${this.calculateDistanceToRestaurant(data.location.latitude, data.location.longitude)} km away`;
+        restaurant.averageCostFor2 = `${data.currency}${data.average_cost_for_two}`;
+        restaurant.cuisines = data.cuisines;
 
         console.log(restaurant.image);
 
         return restaurant;
          
-    }
-
-
-    filterByCuisine() {
-
-
-    }
-
-    filterByPrice() {
-
-
-    }
-
-    calculateDistanceToRestaurant(res: Restaurant) {
-
-        //set distance on restaurant object here 
     }
 
 

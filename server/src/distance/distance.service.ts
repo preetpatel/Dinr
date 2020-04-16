@@ -15,7 +15,7 @@ export class DistanceService {
         "x-rapidapi-key":"0604765222mshc68469b6f8fb753p1141f5jsnecf812c2571d"
     }
 
-    getDistance(originLat: number, originLon: number, destLat: number, destLon: number) {
+    getDistance(originLat: number, originLon: number, destLat: number, destLon: number): number {
 
         let coords = {
             "destinations": `${destLat}%2C${destLon}%3B`,
@@ -29,5 +29,7 @@ export class DistanceService {
             return res.data.distances[0];
         })
         .catch(err => console.log(err));
+
+        return 0;
     }
 }

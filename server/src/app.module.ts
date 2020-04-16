@@ -11,11 +11,12 @@ import { RestaurantsService } from './restaurants/restaurants.service';
 import { RestaurantsController } from './restaurants/restaurants.controller';
 import { SearchController } from './search/search.controller';
 import { SearchService } from './search/search.service';
+import { FilterService } from './filter/filter.service';
 
 
 @Module({
   imports: [ HttpModule ],
   controllers: [AppController, RestaurantController, CuisinesController, DistanceController, RestaurantsController, SearchController],
-  providers: [AppService, RestaurantService, CuisinesService, DistanceService, RestaurantsService, SearchService],
+  providers: [AppService, RestaurantService, CuisinesService, DistanceService, RestaurantsService, SearchService, FilterService],
 })
 export class AppModule {}
