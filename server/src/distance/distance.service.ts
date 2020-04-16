@@ -27,7 +27,6 @@ export class DistanceService {
             console.log(res.data.distances[0]);
 
             return res.data.distances[0];
-            // return res.data.distances[0];
         })
         .catch(err => console.log(err));
     }

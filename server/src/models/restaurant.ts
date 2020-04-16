@@ -11,4 +11,6 @@ export class Restaurant {
     distance: string;
     review: string;
     priceRange: number;
+    latitude: number;
+    longitude: number;
   }
