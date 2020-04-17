@@ -25,7 +25,8 @@ export class AppService {
       this.originalLon = lon;
 
       //Search given distance modifier
-      this.allRestaurants; //equals some call made here 
+  
+      this.allRestaurants=this.searchService.expandingSquaresearch(lat, lon, distanceMod); //equals some call made here 
       //(the call made here will call the getRestaurantsForLocation method in the restaurant service
       // for each location needed given the distance modifier)
 

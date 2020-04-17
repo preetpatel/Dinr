@@ -9,7 +9,11 @@ export class SearchService {
     constructor(){}
 
     protected lengthOneDegreeLat: number = 111000;
-    protected thousandMInLat = 0.009; 
+    protected deltaLat: number = 2*0.009;
+    protected deltaLon: number = 0; 
+
+    protected restaurants:Map<number, Restaurant> = new Map();
+
 
     protected baseAddress: string = "https://developers.zomato.com/api/v2.1";
 
@@ -17,19 +21,72 @@ export class SearchService {
         'user-key': '98334e87fff8e40beb83e1609e380766'
     };
 
-    expandingSquaresearch(originLat: number, originLon: number, distanceMod: number){
-        let searchIteration: number = 0;
-        while(searchIteration < distanceMod){
+    expandingSquaresearch(originLat: number, originLon: number, distanceMod: number): Restaurant[] {
+        
+        let restaurants: Restaurant[];
+
+        let iterations: number = distanceMod/2;
+        let searchCount: number = 0;
+
+        let newLatN: number = originLat;
+        let newLatS: number = originLat;
+        let newLonE: number = originLon;
+        let newLonW: number = originLon;
+
+        // Set delta lon for current latitude
+        this.deltaLon = this.twoKmLon(originLat);
+    
+        // Get initial restaurants around origin
+        this.getRestaurantsForLocation(originLat, originLon).forEach(restaurant => {
+            this.restaurants.set(restaurant.id, restaurant);
+        });
+
+        while(searchCount < iterations){
+
+
+            //Find delta lon and 
+            newLatN = newLatN + this.deltaLat;
+            newLatS = newLatS - this.deltaLat;
+            newLonE = newLonE + this.deltaLon;
+            newLonW = newLonW - this.deltaLon;
+            searchCount++;
+
+            //Move north
+            this.catchDuplicates(this.getRestaurantsForLocation(newLatN, originLon));
+
+            //Move south
+            this.catchDuplicates(this.getRestaurantsForLocation(newLatS, originLon));
+
+            //Move east
+            this.catchDuplicates(this.getRestaurantsForLocation(originLat, newLonE));
+            
+            //Move west
+            this.catchDuplicates(this.getRestaurantsForLocation(originLat, newLonW));
+
+            // Increment delta lat after as is pre known constant.
             
         }
 
+        // Return list of restaurants as an array
 
+        for (let res of this.restaurants.values()) {
+            restaurants.push(res);
+        }
 
+        return restaurants;
     }
 
-    oneKmLon(lat: number){
+    catchDuplicates(restaurants: Restaurant[]){
+        restaurants.forEach(restaurant => {
+            if(!(this.restaurants.has(restaurant.id))){
+                this.restaurants.set(restaurant.id, restaurant);
+            }
+        })
+    }
+
+    twoKmLon(lat: number){
         let oneDegreeLonInM = Math.cos(this.toRadians(lat))*this.lengthOneDegreeLat;
-        return 1/oneDegreeLonInM;
+        return 2*(1/oneDegreeLonInM);
     }
 
     toRadians(deg: number) {
@@ -38,7 +95,7 @@ export class SearchService {
 
 
 
-    getRestaurantsForLocation(lat: number, lon: number) {
+    getRestaurantsForLocation(lat: number, lon: number): Restaurant[]  {
 
         let restaurants: Restaurant[] = [];
 
@@ -47,13 +104,12 @@ export class SearchService {
 
             res.data.nearby_restaurants.forEach(location => {
                 // console.log(location.restaurant.name);
-                let res : Restaurant = this.settingRestaurantInfo(location.restaurant);  
+                let res : Restaurant = this.setRestaurantInfo(location.restaurant);  
                 restaurants.push(res);
             });
-
         })
         .catch(err => console.log(err));
-
+        return restaurants;
     }
 
 

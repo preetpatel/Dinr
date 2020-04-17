@@ -12,7 +12,7 @@ export class FilterService {
 
         allRestaurants.forEach(res => {
             for (let cuisine in cuisineList) {
-                if (res.cuisines.includes(cuisine)) {
+                if (res.cuisine.includes(cuisine)) {
                     filteredRestaurants.push(res);
                 }
             }
