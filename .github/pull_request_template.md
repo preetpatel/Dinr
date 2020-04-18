@@ -1,4 +1,11 @@
+---
+name: Pull Requeest
+about: Create a pull request for review
+title: ''
+labels: pull request
+assignees: ''
 
+---
 GitHub Issue (If applicable): #
 
 <!-- Link to relevant GitHub issue if applicable. All PRs should be associated with an issue (GitHub issue or internal) -->
