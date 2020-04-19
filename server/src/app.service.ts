@@ -16,19 +16,24 @@ export class AppService {
 
   originalLat: number;
   originalLon: number;
-  allRestaurants: Restaurant[];
+  allRestaurants$: Promise<Restaurant[]>;
   filteredRestaurants: Restaurant[];
 
-  getRestaurants(lat: number, lon: number, distanceMod: number, 
-    cuisines: string, priceRange: number ): Restaurant[] {
+  async getRestaurants(lat: number, lon: number, distanceMod: number, 
+    cuisines: string, priceRange: number ): Promise<Restaurant[]> {
       this.originalLat = lat;
       this.originalLon = lon;
 
       //Search given distance modifier
   
-      this.allRestaurants=this.searchService.expandingSquaresearch(lat, lon, distanceMod); //equals some call made here 
-      //(the call made here will call the getRestaurantsForLocation method in the restaurant service
-      // for each location needed given the distance modifier)
+      this.allRestaurants$ = this.searchService.expandingSquaresearch(lat, lon, distanceMod); 
+
+      this.allRestaurants$.then(restaurants => {
+        
+
+
+
+      })
 
       //Filter by cuisine
       this.filteredRestaurants = this.filterService.filterByCuisines(this.allRestaurants, cuisines);
@@ -40,6 +45,7 @@ export class AppService {
       //Get distances for each restaurant that we've gotten back
       this.filteredRestaurants =this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
 
+      console.log(this.filteredRestaurants[0]);
       return this.filteredRestaurants;
   }
 

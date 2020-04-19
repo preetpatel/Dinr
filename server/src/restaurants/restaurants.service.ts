@@ -1,7 +1,8 @@
 import { Injectable  } from '@nestjs/common';
-import axios from 'axios';
+import axios, { AxiosPromise } from 'axios';
 import { Restaurant } from 'src/models/restaurant';
 import { Rating } from 'src/models/rating';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class RestaurantsService {
@@ -15,15 +16,15 @@ export class RestaurantsService {
     };
 
 
-    getRestaurantsForLocation(lat: number, lon: number): Restaurant[] {
+    async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
         let restaurants: Restaurant[] = [];
 
-        axios({method: 'GET', url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, headers: this.headersRequest})
+        return await axios({method: 'GET', url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, headers: this.headersRequest})
         .then(res => {
 
             res.data.nearby_restaurants.forEach(location => {
-                // console.log(location.restaurant.name);
+                console.log(location.restaurant.name);
                 let res : Restaurant = this.setRestaurantInfo(location.restaurant);  
                 restaurants.push(res);
             });
@@ -31,9 +32,12 @@ export class RestaurantsService {
             return restaurants;
 
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            return restaurants;
 
-        return restaurants;
+        });
+
     }
 
     setRestaurantInfo(data: any, ): Restaurant {
@@ -52,7 +56,7 @@ export class RestaurantsService {
         restaurant.averageCostFor2 = `${data.currency}${data.average_cost_for_two}`;
         restaurant.cuisines = data.cuisines;
 
-        console.log(restaurant.image);
+        // console.log(restaurant.image);
 
         return restaurant;
          

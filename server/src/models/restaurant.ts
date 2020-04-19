@@ -2,7 +2,7 @@ import { Rating } from "./rating";
 
 export class Restaurant {
     id: number;
-    cuisine: string;
+    cuisines: string;
     name: string;
     rating: Rating;
     averageCostFor2: string;
