@@ -2,12 +2,12 @@ import { Injectable  } from '@nestjs/common';
 import axios, { AxiosPromise } from 'axios';
 import { Restaurant } from 'src/models/restaurant';
 import { Rating } from 'src/models/rating';
-import { Observable } from 'rxjs';
+import { DistanceService } from 'src/distance/distance.service';
 
 @Injectable()
 export class RestaurantsService {
 
-    constructor() {}
+    constructor(private distanceService: DistanceService) {}
 
     protected baseAddress: string = "https://developers.zomato.com/api/v2.1";
 
@@ -16,28 +16,31 @@ export class RestaurantsService {
     };
 
 
-    async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
+    async getRestaurantsForLocation(lat: number, lon: number) {
 
         let restaurants: Restaurant[] = [];
+        let restaurant: Restaurant;
 
-        return await axios({method: 'GET', url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, headers: this.headersRequest})
-        .then(res => {
-
-            res.data.nearby_restaurants.forEach(location => {
-                console.log(location.restaurant.name);
-                let res : Restaurant = this.setRestaurantInfo(location.restaurant);  
-                restaurants.push(res);
+        try {
+            const response = await axios({
+                method: 'GET', 
+                url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, 
+                headers: this.headersRequest
+            });
+    
+            response.data.nearby_restaurants.forEach(location => {
+                //console.log(location.restaurant.name);
+                restaurant = this.setRestaurantInfo(location.restaurant);
+                restaurants.push(restaurant);
             });
 
+            // console.log('Got res for: '+ lat + ', ' + lon);
+
             return restaurants;
-
-        })
-        .catch(err => {
-            console.log(err);
-            return restaurants;
-
-        });
-
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     setRestaurantInfo(data: any, ): Restaurant {
@@ -55,8 +58,8 @@ export class RestaurantsService {
         restaurant.rating = rating;
         restaurant.averageCostFor2 = `${data.currency}${data.average_cost_for_two}`;
         restaurant.cuisines = data.cuisines;
-
-        // console.log(restaurant.image);
+        restaurant.latitude = data.location.latitude;
+        restaurant.longitude = data.location.longitude;
 
         return restaurant;
          

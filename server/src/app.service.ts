@@ -16,7 +16,8 @@ export class AppService {
 
   originalLat: number;
   originalLon: number;
-  allRestaurants$: Promise<Restaurant[]>;
+  allRestaurants: Restaurant[];
+
   filteredRestaurants: Restaurant[];
 
   async getRestaurants(lat: number, lon: number, distanceMod: number, 
@@ -24,46 +25,37 @@ export class AppService {
       this.originalLat = lat;
       this.originalLon = lon;
 
-      //Search given distance modifier
-  
-      this.allRestaurants$ = this.searchService.expandingSquaresearch(lat, lon, distanceMod); 
+      //Search given distance modifier  
+      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, distanceMod); 
 
-      this.allRestaurants$.then(restaurants => {
-        
-
-
-
-      })
-
-      //Filter by cuisine
+      // //Filter by cuisine
       this.filteredRestaurants = this.filterService.filterByCuisines(this.allRestaurants, cuisines);
 
-      //Filter by price range
+      // //Filter by price range
       this.filteredRestaurants = this.filterService.filterByPriceRange(this.filteredRestaurants, priceRange);
 
 
-      //Get distances for each restaurant that we've gotten back
-      this.filteredRestaurants =this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
+      // //Get distances for each restaurant that we've gotten back
+      this.filteredRestaurants = await this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
 
-      console.log(this.filteredRestaurants[0]);
       return this.filteredRestaurants;
   }
 
 
-  getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number): Restaurant[] {
+  async getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number) {
 
-    let filteredRestaurants: Restaurant[];
+    let filteredRestaurants: Restaurant[] = new Array();
+    let distance: number = 0;
 
-    restaurants.forEach(restaurant => {
-      let distanceKm: number = (this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude))/1000;
-      let distance: string = distanceKm.toLocaleString() + "km away.";
-      if (distanceKm < distanceMod) {
+    console.log('DistanceMod: ' + distanceMod);
+    for (let restaurant of restaurants){
+      distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude)/1000;
+      if(distance <= distanceMod){
         restaurant.distance = distance;
         filteredRestaurants.push(restaurant);
       }
-    });
-    
+    }
     return filteredRestaurants;
-
+    
   }
 }

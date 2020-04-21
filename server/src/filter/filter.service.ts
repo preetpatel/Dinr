@@ -11,8 +11,8 @@ export class FilterService {
         let filteredRestaurants: Restaurant[] = [];
 
         allRestaurants.forEach(res => {
-            for (let cuisine in cuisineList) {
-                if (res.cuisines.includes(cuisine)) {
+            for (let cuisine of cuisineList) {
+                if (res.cuisines.toLowerCase().includes(cuisine)) {
                     filteredRestaurants.push(res);
                 }
             }
@@ -23,9 +23,17 @@ export class FilterService {
 
     filterByPriceRange(allRestaurants: Restaurant[], priceRange: number): Restaurant[] {
 
-        return allRestaurants.filter(res => {
-            res.priceRange>=priceRange;
-        });
+        let filteredRestaurants: Restaurant[] = new Array();
+
+        for(let restaurant of allRestaurants){
+            //console.log('Res ' + restaurant.name + ' price: ' + restaurant.priceRange + ', Search price: ' + priceRange);
+            if(restaurant.priceRange <= priceRange){
+                filteredRestaurants.push(restaurant);
+                //console.log('Res name: ' + restaurant.name);
+            }
+        }
+
+        return filteredRestaurants;
 
     }
 

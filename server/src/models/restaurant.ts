@@ -8,7 +8,8 @@ export class Restaurant {
     averageCostFor2: string;
     image: string;
     address: string;
-    distance?: string;
+    // Distance in km
+    distance: number;
     review: string;
     priceRange: number;
     latitude: number;

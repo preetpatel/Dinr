@@ -15,21 +15,23 @@ export class DistanceService {
         "x-rapidapi-key":"0604765222mshc68469b6f8fb753p1141f5jsnecf812c2571d"
     }
 
-    getDistance(originLat: number, originLon: number, destLat: number, destLon: number): number {
+    async getDistance(originLat: number, originLon: number, destLat: number, destLon: number) {
 
         let coords = {
             "destinations": `${destLat}%2C${destLon}%3B`,
             "origins": `${originLat}%2C${originLon}%3B;`
         }
-        
-        axios({method: 'GET', url: `${this.baseAddress}`, headers: this.headersRequest, params: coords})
-        .then(res => {
-            console.log(res.data.distances[0]);
+        try {
+            const response = await axios({
+                method: 'GET', 
+                url: `${this.baseAddress}`, 
+                headers: this.headersRequest, params: coords
+            });
 
-            return res.data.distances[0];
-        })
-        .catch(err => console.log(err));
-
-        return 0;
+            return response.data.distances[0];
+    
+        } catch (err) {
+            console.log(err);
+        }
     }
 }
