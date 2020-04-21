@@ -1,15 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DistanceController } from './distance.controller';
+import { DistanceService } from './distance.service';
 
 describe('Distance Controller', () => {
   let controller: DistanceController;
+  let service: DistanceService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [DistanceController],
-    }).compile();
-
-    controller = module.get<DistanceController>(DistanceController);
+  beforeEach(() => {
+    service = new DistanceService;
+    controller = new DistanceController(service);
   });
 
   it('should be defined', () => {
