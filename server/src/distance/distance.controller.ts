@@ -6,9 +6,9 @@ export class DistanceController {
 
     constructor(private distanceService: DistanceService) {}
 
+    // Gets travel distance by car to a restaurant given it's coordinates and the users 
     @Get('/:originLat/:originLon/:lat/:lon')
     getDistance(@Param() params) {
-        console.log('Get travel distance via car from user to restaurant');
         return this.distanceService.getDistance(params.originLat, params.originLon, params.lat, params.lon);
     }
 

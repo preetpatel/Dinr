@@ -1,13 +1,12 @@
 import { Injectable  } from '@nestjs/common';
-import axios, { AxiosPromise } from 'axios';
+import axios from 'axios';
 import { Restaurant } from 'src/models/restaurant';
 import { Rating } from 'src/models/rating';
-import { DistanceService } from 'src/distance/distance.service';
 
 @Injectable()
 export class RestaurantsService {
 
-    constructor(private distanceService: DistanceService) {}
+    constructor() {}
 
     protected baseAddress: string = "https://developers.zomato.com/api/v2.1";
 
@@ -16,10 +15,9 @@ export class RestaurantsService {
     };
 
 
-    async getRestaurantsForLocation(lat: number, lon: number) {
+    public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
-        let restaurants: Restaurant[] = [];
-        let restaurant: Restaurant;
+        let restaurantsForLocation: Restaurant[] = [];
 
         try {
             const response = await axios({
@@ -29,21 +27,18 @@ export class RestaurantsService {
             });
     
             response.data.nearby_restaurants.forEach(location => {
-                //console.log(location.restaurant.name);
-                restaurant = this.setRestaurantInfo(location.restaurant);
-                restaurants.push(restaurant);
+                restaurantsForLocation.push(this.setRestaurantInfo(location.restaurant));
             });
 
-            // console.log('Got res for: '+ lat + ', ' + lon);
-
-            return restaurants;
+            return restaurantsForLocation;
             
         } catch (error) {
-            console.log(error);
+            //Need to handle if get null back...
+            return null;
         }
     }
 
-    setRestaurantInfo(data: any, ): Restaurant {
+    private setRestaurantInfo(data: any ): Restaurant {
 
         let restaurant: Restaurant = new Restaurant;
         let rating: Rating = new Rating;
@@ -64,8 +59,5 @@ export class RestaurantsService {
         return restaurant;
          
     }
-
-
-
 
 }

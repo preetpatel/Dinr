@@ -15,8 +15,9 @@ export class DistanceService {
         "x-rapidapi-key":"0604765222mshc68469b6f8fb753p1141f5jsnecf812c2571d"
     }
 
-    async getDistance(originLat: number, originLon: number, destLat: number, destLon: number) {
+    public async getDistance(originLat: number, originLon: number, destLat: number, destLon: number): Promise<number> {
 
+        // Using Trueway API to calculate driving distance between user and restaurant 
         let coords = {
             "destinations": `${destLat}%2C${destLon}%3B`,
             "origins": `${originLat}%2C${originLon}%3B;`
