@@ -1,7 +1,7 @@
 import { Injectable  } from '@nestjs/common';
 import axios from 'axios';
-import { Restaurant } from 'src/models/restaurant';
-import { Rating } from 'src/models/rating';
+import { Rating } from '../models/rating';
+import { Restaurant } from '../models/restaurant';
 
 @Injectable()
 export class RestaurantsService {
