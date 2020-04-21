@@ -13,7 +13,7 @@ make sure that any new work is not done on the master branch as you will be unab
 
 Create a bug report or feature request by following these steps:
 
-1. Ensure an issue does not already exist for it by searching [here](https://github.com/PreetPatel/ASMR/issues)
+1. Ensure an issue does not already exist for it by searching [here](https://github.com/PreetPatel/Dinr/issues)
 2. If creating a bug report, follow all instructions in the [bug report template](./.github/ISSUE_TEMPLATE/bug_report.md)
 3. If creating a feature request, follow all instructions in the [feature request template](./.github/ISSUE_TEMPLATE/feature_request.md)
 4. If creating a user story or documentation, follow all instructions in the template [here](./.github/ISSUE_TEMPLATE/user-story-documentation-request.md)
