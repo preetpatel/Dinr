@@ -13,7 +13,8 @@ name: Deploy server
 on:
   push:
     branches: [ master ]
-    paths: './server/**'
+    paths: 
+    - './server/**'
 
 env:
   AZURE_WEBAPP_NAME: DinrServer    # set this to your application's name
