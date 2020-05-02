@@ -16,6 +16,8 @@ interface CuisineGridProps {
 export const SettingsScreen: React.FC = () => {
   const [distance, changeDistance] = React.useState(1);
   const [priceLevel, changePrice] = React.useState(1);
+  
+  // TODO: Remove dummy data
   const cuisines: Cuisine[] = [
     {
       name: "Indian",
@@ -61,31 +63,6 @@ export const SettingsScreen: React.FC = () => {
       name: "Japanese",
       selected: false,
       id: 15,
-    },
-    {
-      name: "Indian",
-      selected: false,
-      id: 21,
-    },
-    {
-      name: "Chinese",
-      selected: false,
-      id: 22,
-    },
-    {
-      name: "Thai",
-      selected: false,
-      id: 23,
-    },
-    {
-      name: "African",
-      selected: false,
-      id: 24,
-    },
-    {
-      name: "Mexican",
-      selected: false,
-      id: 25,
     },
   ];
 
