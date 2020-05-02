@@ -1,11 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 
 interface Cuisine {
   name: string,
   selected: boolean,
   id: number,
+}
+
+interface CuisineGridProps {
+  cuisines: Cuisine[],
+  onCuisinePress: (cuisine: Cuisine) => void,
 }
 
 export const SettingsScreen: React.FC = () => {
@@ -23,9 +28,64 @@ export const SettingsScreen: React.FC = () => {
       id: 2,
     },
     {
-      name: "English",
+      name: "French",
       selected: false,
-      id: 3,
+      id: 4,
+    },
+    {
+      name: "Spanish",
+      selected: false,
+      id: 5,
+    },
+    {
+      name: "Brunch",
+      selected: false,
+      id: 11,
+    },
+    {
+      name: "Dessert",
+      selected: false,
+      id: 12,
+    },
+    {
+      name: "Ice cream",
+      selected: false,
+      id: 13,
+    },
+    {
+      name: "Bubble tea",
+      selected: false,
+      id: 14,
+    },
+    {
+      name: "Japanese",
+      selected: false,
+      id: 15,
+    },
+    {
+      name: "Indian",
+      selected: false,
+      id: 21,
+    },
+    {
+      name: "Chinese",
+      selected: false,
+      id: 22,
+    },
+    {
+      name: "Thai",
+      selected: false,
+      id: 23,
+    },
+    {
+      name: "African",
+      selected: false,
+      id: 24,
+    },
+    {
+      name: "Mexican",
+      selected: false,
+      id: 25,
     },
   ];
 
@@ -77,7 +137,7 @@ export const SettingsScreen: React.FC = () => {
           <View style={{ width: 30 }}/>
         </View>
         <Image source={require("../images/logo-with-text.png")} style={styles.logo}/>
-        <CuisinesGrid cuisines={cuisineState} callback={onCuisinePress}/>
+        <CuisinesGrid cuisines={cuisineState} onCuisinePress={onCuisinePress}/>
         <View style={styles.sliderContainer}>
           <View style={styles.sliderTextContainer}>
             <Text style={styles.sliderHeaderText}>Distance</Text>
@@ -128,20 +188,46 @@ export const SettingsScreen: React.FC = () => {
   );
 };
 
-const CuisinesGrid = ({cuisines, callback}) => {
+const CuisinesGrid = (props: CuisineGridProps) => {
+  let numCols = Math.ceil(props.cuisines.length / 4);
+
   return (
-    <View style={{ marginBottom: 30 }}>
-      {cuisines.map((cuisine) => {
-        return (
-          <TouchableOpacity 
-            key={cuisine.id} 
-            style={cuisine.selected ? styles.cuisineSelected : styles.cuisineUnselected}
-            onPress={() => callback(cuisine)}
-          >
-            <Text style={cuisine.selected ? styles.selectedCuisineText : styles.sliderKeyText}>{cuisine.name}</Text>
-          </TouchableOpacity>
-        );
-      })}
+    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>            
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+      >
+        <FlatList
+          keyExtractor={(item, index) => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+          data={props.cuisines}
+          numColumns={numCols}
+          renderItem={({item, index}) => {
+            let marginRight = 7.5;
+            let marginLeft = 7.5;
+            if (index === numCols || index === 3 * numCols) {
+              marginLeft = 70;
+            } else if (index === 0 || index === 2 * numCols) {
+              marginLeft = 40;
+            }
+            if (index === numCols - 1 || index === 2 * numCols - 1 || index === 3 * numCols - 1 || index === 4 * numCols - 1) {
+              marginRight = 40;
+            }
+
+            return (
+              <TouchableOpacity 
+                key={item.id} 
+                style={[item.selected ? styles.cuisineSelected : styles.cuisineUnselected, {marginLeft: marginLeft, marginRight: marginRight}]}
+                onPress={() => props.onCuisinePress(item)}
+              >
+                <Text style={item.selected ? styles.selectedCuisineText : styles.sliderKeyText}>{item.name}</Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -212,6 +298,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   cuisineUnselected: {
+    margin: 5,
+    width: 90,
     display: "flex",
     height: 32,
     borderRadius: 16,
@@ -223,6 +311,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   cuisineSelected: {
+    margin: 5,
+    width: 90,
     display: "flex",
     height: 32,
     borderRadius: 16,
