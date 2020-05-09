@@ -18,7 +18,7 @@ export const Card: React.FC<CardParams> = (props) => {
     return (
         <View style={styles.card}>
             <Image style={styles.cardImage} source={props.imageURI}/>
-            <LinearGradient colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.55)"]} style={styles.imageOverlay} />
+            <LinearGradient colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.25)"]} style={styles.imageOverlay} />
             <View style={styles.restaurantInfo}>
                 <Text style={styles.restaurantName}>{props.name}</Text>
                 <View style={styles.restaurantReview}>

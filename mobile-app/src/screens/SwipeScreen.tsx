@@ -82,10 +82,11 @@ export const SwipeScreen: React.FC = () => {
           disableBottomSwipe={true}
             disableTopSwipe={hasUsedSuperLike} // Cannot superLike more than one restaurant
           onSwipedAll={handleOnComplete} // TODO Redirect to next page
-          backgroundColor={'#EEEEEE'}
+          backgroundColor={'rgba(0,0,0,0)'}
           cardIndex={0}
           overlayLabels={overlayStyles}
           animateCardOpacity={true}
+            marginTop={-20}
           stackSize= {3}>
       </Swiper> }
       </View>
