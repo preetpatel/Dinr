@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { Image, StyleSheet, Text, View} from "react-native";
+import React, {useEffect, useRef, useState} from "react";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
 import Swiper from "react-native-deck-swiper";
 import {Card} from "@components/Card";
@@ -7,14 +7,14 @@ import {Card} from "@components/Card";
 export type SwipeScreenNavigationParams = {
   readonly timer: number;
   readonly restaurantData: unknown;
-  readonly numberOfRestaurants: number;
 };
 
 export const SwipeScreen: React.FC = () => {
   const navigation = useNavigation();
   const [time, setTime] = useState(90);
   const [restaurantData, setRestaurantData] = useState();
-  const [numberOfRestaurants, setNumberOfRestaurants] = useState();
+  const [hasUsedSuperLike, setHasUsedSuperLike] = useState(false);
+  const swipeComponent = useRef<Swiper>();
 
   useEffect(() => {
     // @ts-ignore
@@ -22,15 +22,18 @@ export const SwipeScreen: React.FC = () => {
     // @ts-ignore
     const restaurantData = navigation.getParam("restaurantData");
     // @ts-ignore
-    const numberRestaurants = navigation.getParam("numberOfRestaurants");
     setTime(time);
-    setNumberOfRestaurants(numberRestaurants);
     setRestaurantData(restaurantData)
   }, [navigation]);
 
   const handleOnComplete = () => {
     console.log("Swiping over. Redirecting back to home screen for now");
     navigation.navigate("HomeScreen");
+  }
+
+  const handleSuperLike = (cardIndex: number) => {
+    setHasUsedSuperLike(true);
+    console.log(cardIndex + " Super liked! This can only be done once and has now been disabled")
   }
 
   return (
@@ -45,6 +48,7 @@ export const SwipeScreen: React.FC = () => {
       <View style={{flex: 1}}>
         {restaurantData &&
         <Swiper
+            ref={(swiper) => {swipeComponent.current = swiper}}
           cards={restaurantData}
           renderCard={(card) => {
             return (
@@ -53,19 +57,28 @@ export const SwipeScreen: React.FC = () => {
           }}
           onSwipedLeft={(cardIndex) => {console.log(cardIndex + " swiped Left")}}
           onSwipedRight={(cardIndex) => {console.log(cardIndex + " swiped Right")}}
-          onSwipedTop={(cardIndex) => {console.log(cardIndex + " Super liked!")}}
-          onSwipedBottom={(cardIndex) => {console.log(cardIndex + " swiped Left")}} // Treat bottom swipe as a dislike
+          onSwipedTop={(cardIndex) => {handleSuperLike(cardIndex)}}
+          disableBottomSwipe={true}
+            disableTopSwipe={hasUsedSuperLike} // Cannot superlike more than one restaurant
           onSwipedAll={handleOnComplete} // TODO Redirect to next page
           backgroundColor={'#EEEEEE'}
           cardIndex={0}
-          containerStyle={styles.mainContainer}
-          stackSize= {numberOfRestaurants}>
+          overlayLabels={overlayStyles}
+          animateCardOpacity={true}
+          stackSize= {3}>
       </Swiper> }
       </View>
       <View style={styles.footer}>
-        <Image style={[styles.buttonImage, styles.pushImage]} source={require("../images/dislike.png")}/>
-        <Image style={styles.buttonImage} source={require("../images/superlike.png")}/>
-        <Image style={[styles.buttonImage, styles.pushImage]} source={require("../images/like.png")}/>
+        <TouchableOpacity onPress={() => swipeComponent.current.swipeLeft()}>
+          <Image style={[styles.buttonImage, styles.pushImage]} source={require("../images/dislike.png")}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => hasUsedSuperLike ? {} : swipeComponent.current.swipeTop()}>
+          <Image style={hasUsedSuperLike? [styles.buttonImage, styles.buttonDisabled] : styles.buttonImage} source={require("../images/superlike.png")}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => swipeComponent.current.swipeRight()}>
+          <Image style={[styles.buttonImage, styles.pushImage]} source={require("../images/like.png")}/>
+        </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -104,7 +117,6 @@ const styles = StyleSheet.create({
     padding: 60,
     justifyContent: "space-between",
     flexDirection: "row",
-    zIndex: -10
   },
   pushImage: {
     marginTop: 15,
@@ -113,4 +125,62 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  buttonDisabled: {
+    tintColor: "grey"
+  }
 });
+
+const overlayStyles = {
+  left: {
+    title: 'NOPE',
+    style: {
+      label: {
+        backgroundColor: 'black',
+        borderColor: 'black',
+        color: 'white',
+        borderWidth: 1
+      },
+      wrapper: {
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        marginTop: 30,
+        marginLeft: -30
+      }
+    }
+  },
+  right: {
+    title: 'LIKE',
+    style: {
+      label: {
+        backgroundColor: 'black',
+        borderColor: 'black',
+        color: 'white',
+        borderWidth: 1
+      },
+      wrapper: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        marginTop: 30,
+        marginLeft: 30
+      }
+    }
+  },
+  top: {
+    title: 'SUPER LIKE',
+    style: {
+      label: {
+        backgroundColor: 'black',
+        borderColor: 'black',
+        color: 'white',
+        borderWidth: 1
+      },
+      wrapper: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }
+  }
+}

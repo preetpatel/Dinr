@@ -21,7 +21,7 @@ export const HomeScreen: React.FC = () => {
       { id: "4", uri: require('../images/food4.jpg'), restaurantName: "Kati Grill", stars: 4, price: 4, distance: 2.4, quote: "Yummy wraps! Wish they were a bit closer to me" },
       { id: "5", uri: require('../images/food5.jpg'), restaurantName: "Portofino", stars: 5, price: 5, distance: 1, quote: "Amazing views.. super friendly staff who serve you well" },
     ]
-    navigation.navigate("SwipeScreen", {timer: 2, restaurantData: data, numberOfRestaurants: 5})
+    navigation.navigate("SwipeScreen", {timer: 2, restaurantData: data})
   }
 
   return (

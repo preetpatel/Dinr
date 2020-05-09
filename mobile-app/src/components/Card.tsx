@@ -1,4 +1,4 @@
-import {Dimensions, Image, ImageProps, StyleSheet, Text, View} from "react-native";
+import { Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import {ReviewStars} from "@components/ReviewStars";
 import {PriceSymbols} from "@components/PriceSymbol";
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
-        height: Dimensions.get("window").height /3,
     },
     cardImage: {
         flex: 1,
