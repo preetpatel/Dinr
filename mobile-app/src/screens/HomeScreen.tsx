@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from "react-native";
+import {useNavigation} from "@navigation/hooks/useNavigation";
 
 export const HomeScreen: React.FC = () => {
   const [code, changeCode] = React.useState("");
   const [invalidCode, changeCodeInvalid] = React.useState(false);
+  const navigation = useNavigation();
 
   const joinButtonPress = () => {
     // TODO: Change this functionality later to validate session code
@@ -13,7 +15,7 @@ export const HomeScreen: React.FC = () => {
   }
 
   const newSessionPress = () => {
-    // TODO: Add change screen functionality here
+    navigation.navigate("SwipeScreen", {timer: 2})
   }
 
   return (
@@ -26,15 +28,15 @@ export const HomeScreen: React.FC = () => {
         <View style={{marginTop: 30}}>
           <View style={invalidCode ? [styles.codeInput, styles.invalidCodeBorder]: styles.codeInput}>
             <Image source={require("../images/fork-knife.png")} style={styles.forkKnife}/>
-            <TextInput 
-              style={styles.textInput} value={code} 
-              placeholder={"Session Invite Code"} 
+            <TextInput
+              style={styles.textInput} value={code}
+              placeholder={"Session Invite Code"}
               onChangeText={text => changeCode(text.trim())}
               placeholderTextColor={"#979797"}
             />
           </View>
-          <TouchableOpacity 
-            style={code === "" ? styles.buttonDisabled : styles.buttonEnabled} 
+          <TouchableOpacity
+            style={code === "" ? styles.buttonDisabled : styles.buttonEnabled}
             onPress={joinButtonPress}
             disabled={code === ""}
           >
