@@ -12,10 +12,30 @@ export type SwipeScreenNavigationParams = {
 
 export const SwipeScreen: React.FC = () => {
   const navigation = useNavigation();
-  const [time, setTime] = useState(90);
+  const [time, setTime] = useState();
   const [restaurantData, setRestaurantData] = useState();
   const [hasUsedSuperLike, setHasUsedSuperLike] = useState(false);
   const swipeComponent = useRef<Swiper>();
+
+  /**
+   * Timer hook to count down and navigate
+   */
+  useEffect( () => {
+    const interval = setInterval(() => {
+      setTime((time: number) => {
+        const newTime = time - 1;
+        if (newTime == 0) {
+          navigation.navigate("HomeScreen") // TODO Called when timer is over.. navigates to next screen
+          return;
+        } else {
+          return newTime;
+        }
+      })
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   useEffect(() => {
     // @ts-ignore
