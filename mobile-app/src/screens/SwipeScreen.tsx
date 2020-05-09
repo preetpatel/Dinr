@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
+import { Image, StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
-import LinearGradient from 'react-native-linear-gradient';
 import Swiper from "react-native-deck-swiper";
-import {ReviewStars} from "@components/ReviewStars";
-import {PriceSymbols} from "@components/PriceSymbol";
-import {LocationSymbol} from "@components/LocationSymbol";
 import {Card} from "@components/Card";
 
 export type SwipeScreenNavigationParams = {
