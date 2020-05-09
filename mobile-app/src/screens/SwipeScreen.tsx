@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+// @ts-ignore
 import Swiper from "react-native-deck-swiper";
 import {Card} from "@components/Card";
 
@@ -48,18 +49,18 @@ export const SwipeScreen: React.FC = () => {
       <View style={{flex: 1}}>
         {restaurantData &&
         <Swiper
-            ref={(swiper) => {swipeComponent.current = swiper}}
+            ref={(swiper: any) => {swipeComponent.current = swiper}}
           cards={restaurantData}
-          renderCard={(card) => {
+          renderCard={(card: { restaurantName: string; uri: import("react-native").ImageProps; stars: number; price: number; distance: number; quote: string; }) => {
             return (
                 <Card name={card.restaurantName} imageURI={card.uri} stars={card.stars} price={card.price} distance={card.distance} quote={card.quote}/>
             )
           }}
-          onSwipedLeft={(cardIndex) => {console.log(cardIndex + " swiped Left")}}
-          onSwipedRight={(cardIndex) => {console.log(cardIndex + " swiped Right")}}
-          onSwipedTop={(cardIndex) => {handleSuperLike(cardIndex)}}
+          onSwipedLeft={(cardIndex: number) => {console.log(cardIndex + " swiped Left")}}
+          onSwipedRight={(cardIndex: number) => {console.log(cardIndex + " swiped Right")}}
+          onSwipedTop={(cardIndex: number) => {handleSuperLike(cardIndex)}}
           disableBottomSwipe={true}
-            disableTopSwipe={hasUsedSuperLike} // Cannot superlike more than one restaurant
+            disableTopSwipe={hasUsedSuperLike} // Cannot superLike more than one restaurant
           onSwipedAll={handleOnComplete} // TODO Redirect to next page
           backgroundColor={'#EEEEEE'}
           cardIndex={0}
