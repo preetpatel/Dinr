@@ -339,4 +339,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SetupSessoinScreen;
+export default SetupSessionScreen;
