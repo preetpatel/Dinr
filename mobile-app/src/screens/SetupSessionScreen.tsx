@@ -14,12 +14,12 @@ interface CuisineGridProps {
   onCuisinePress: (cuisine: Cuisine) => void,
 }
 
-export const SettingsScreen: React.FC = () => {
+export const SetupSessionScreen: React.FC = () => {
   const [distance, changeDistance] = React.useState(1);
   const [priceLevel, changePrice] = React.useState(1);
   const navigation = useNavigation();
   
-  // TODO: Remove dummy data
+  // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
     {
       name: "Indian",
@@ -339,4 +339,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingsScreen;
+export default SetupSessoinScreen;

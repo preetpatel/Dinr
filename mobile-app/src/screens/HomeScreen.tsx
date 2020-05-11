@@ -14,7 +14,7 @@ export const HomeScreen: React.FC = () => {
     }
   }
   const newSessionPress = () => {
-    navigation.navigate("SettingsScreen");
+    navigation.navigate("SetupSessionScreen");
   }
 
   return (

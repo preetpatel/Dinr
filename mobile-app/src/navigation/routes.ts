@@ -10,7 +10,7 @@ type RouteDefinition = {
 export type RouteName =
    "HomeScreen"
   | "SwipeScreen"
-  | "SettingsScreen";
+  | "SetupSessionScreen";
 
 type Routes = {
   readonly [Name in RouteName]: RouteDefinition;
@@ -25,8 +25,8 @@ export const Routes: Routes = {
     title: "Swipe Screen",
     headerShown: false,
   },
-  SettingsScreen: {
-    title: "Settings Screen",
+  SetupSessionScreen: {
+    title: "Setup Session Screen",
     headerShown: false,
   }
 };
