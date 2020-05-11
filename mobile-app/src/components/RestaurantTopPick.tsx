@@ -16,24 +16,25 @@ export const RestaurantTopPick: React.FC = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.restaurantContainer}>
-                <Image style={styles.restaurantImage} source={require("../images/salad-plates.png")}></Image>
-                <View style={styles.restaurantInfoContainer}>
-                    <Text style={styles.nameText}> {restaurant.name} </Text>
-                     <View style={styles.locationInfoContainer}>
-                         <Image style={styles.locationIcon} source={require("../images/location-icon.png")}></Image>
-                         <Text style={styles.distanceText}> {restaurant.disatance} km away</Text>
-                     </View>
-                     <View style={{display: "flex", flexDirection: "row", justifyContent: "flex-start"}}>
-                       {priceRows}
-                     </View>
+                <View style={{ flexDirection: "row" }}>
+                    <Image style={styles.restaurantImage} source={require("../images/salad-plates.png")}></Image>
+                    <View style={styles.restaurantInfoContainer}>
+                        <Text style={styles.nameText}> {restaurant.name} </Text>
+                        <View style={styles.locationInfoContainer}>
+                            <Image style={styles.locationIcon} source={require("../images/location-icon.png")}></Image>
+                            <Text style={styles.distanceText}> {restaurant.disatance} km away</Text>
+                        </View>
+                        <View style={{display: "flex", flexDirection: "row", justifyContent: "flex-start"}}>
+                        {priceRows}
+                        </View>
+                    </View>
                 </View>
                 <TouchableOpacity onPress={viewMorePress}>
                     <Image style={styles.viewMoreButton} source={require("../images/green-forward-arrow.png")}></Image>
                 </TouchableOpacity>
             </View>
-            <View style={styles.lineSeparator}></View>
+            <View style={styles.lineSeparator}/>
         </View>
-
     );
 }
 
@@ -65,8 +66,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "space-between",
         backgroundColor: "#EEEEEE",
-        height: 50,
-        width: 230
+        marginLeft: 10,
     },
     nameText: {
         fontFamily: "SFProDisplay-Bold",
@@ -93,12 +93,11 @@ const styles = StyleSheet.create({
         marginRight: 3
     },
     viewMoreButton: {
-        alignSelf: "flex-end"
+        margin: 15,
     },
     lineSeparator: {
         backgroundColor: '#E1E1E1',
         height: 1,
         width: "100%"
     },
-
 });

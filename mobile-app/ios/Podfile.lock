@@ -247,11 +247,11 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNGestureHandler (1.5.6):
+  - RNGestureHandler (1.5.0):
     - React
   - RNReanimated (1.4.0):
     - React
-  - RNScreens (2.0.0-alpha.12):
+  - RNScreens (2.7.0):
     - React
   - UMBarCodeScannerInterface (5.0.0)
   - UMCameraInterface (5.0.0)
@@ -498,9 +498,9 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNGestureHandler: 911d3b110a7a233a34c4f800e7188a84b75319c6
+  RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
-  RNScreens: 254da4b84f25971cbb30ed3ddc84131f23cac812
+  RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
   UMBarCodeScannerInterface: 3802c8574ef119c150701d679ab386e2266d6a54
   UMCameraInterface: 985d301f688ed392f815728f0dd906ca34b7ccb1
   UMConstantsInterface: bda5f8bd3403ad99e663eb3c4da685d063c5653c

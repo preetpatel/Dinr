@@ -11,18 +11,20 @@ export const ResultsScreen: React.FC = () => {
 
   return (
     <View style={styles.mainContainer}>
+      <View>
+        <Image style={styles.logoImage} source={require("../images/green-logo-text.png")}/>
         <View>
-          <Image style={styles.logoImage} source={require("../images/green-logo-text.png")}></Image>
           <Text style={styles.headerText}>Here are your top picks:</Text>
+          <View style={styles.restaurantPicksContainer} >
+              <RestaurantTopPick/>
+              <RestaurantTopPick/>
+              <RestaurantTopPick/>
+          </View>
         </View>
-        <View style={styles.restaurantPicksContainer} >
-            <RestaurantTopPick></RestaurantTopPick>
-            <RestaurantTopPick></RestaurantTopPick>
-            <RestaurantTopPick></RestaurantTopPick>
-        </View>
-        <TouchableOpacity style={styles.doneButton} onPress={donePress}>
-            <Text style={styles.doneButtonText}> Done</Text>
-        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.doneButton} onPress={donePress}>
+          <Text style={styles.doneButtonText}> Done</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -36,8 +38,11 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   logoImage: {
-    marginTop: 20,
-    alignSelf: "center"
+    marginTop: 50,
+    marginBottom: 40,
+    height: 100,
+    alignSelf: "center",
+    resizeMode: "contain"
   },
   titleText: {
     fontFamily: "SFProDisplay-Bold",
@@ -51,7 +56,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     color: "#29732D",
-    marginTop: 20,
 
   },
   bodyText: {
@@ -64,18 +68,18 @@ const styles = StyleSheet.create({
   restaurantPicksContainer: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 45,
   },
   doneButton: {
     borderRadius: 15,
     borderColor: "#006607",
     borderWidth: 2,
     backgroundColor: "#006607",
-    height: 48,
-    width: 228,
+    height: 45,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
+    alignSelf: "stretch",
     marginTop: 70
   },
   doneButtonText: {

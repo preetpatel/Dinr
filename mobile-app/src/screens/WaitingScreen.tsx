@@ -16,38 +16,34 @@ export const WaitingScreen: React.FC = () => {
 
   return (
     <View style={styles.mainContainer}>
-        
-        <View style={styles.header}>
-          <TouchableOpacity onPress={backPress}>
-              <Image style={styles.backButton} source={require("../images/ic_arrow_back_24px.png")}></Image>
+        <View style={{ flex: 1.2, justifyContent: "space-between"}}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={backPress}>
+                <Image style={styles.backButton} source={require("../images/ic_arrow_back_24px.png")}></Image>
             </TouchableOpacity>
-
             { isHost ? <Text style={styles.headerText}>Hosting Session</Text> : <Text style={styles.headerText}>Joined Session</Text> }
-            <Text style={styles.empty}></Text>
+            <View style={{ width: 30 }}/>
           </View>
 
           <View>
-            <View>
-              <ImageBackground style={styles.logoImage} source={require("../images/logo-bowl.png")}>
-                <Text style={styles.friendsJoinedText}>{friendsJoined}</Text>
-              </ImageBackground>
-            </View>
+            <Text style={styles.codeText}>{friendsJoined}</Text>
             <Text style={styles.bodyText}>friends have joined</Text>
           </View>
-
           <View>
             <Text style={styles.codeText}>{joinCode}</Text>
             <Text style={styles.bodyText}>Share this code with your friends</Text>
           </View>
+        </View>
+        
 
-          <View style={{marginBottom: 20}}>
-            { isHost ? <Text style={styles.bodyText}>And once everyone has joined</Text> : null }
-            <TouchableOpacity style={isHost ? styles.beginButton : styles.waitingButton} onPress={beginMatchingPress} disabled={!isHost}>
-              <Text style={isHost ? styles.beginButtonText : styles.waitingButtonText}>
-                { isHost ? "Begin Matching" : "Waiting on host..." } 
-                </Text>
-            </TouchableOpacity>
-          </View>
+        <View style={{ flex: 1, justifyContent: "flex-end"}}>
+          { isHost ? <Text style={styles.bodyText}>And once everyone has joined</Text> : <View style={{ height: 28}}/> }
+          <TouchableOpacity style={isHost ? styles.beginButton : styles.waitingButton} onPress={beginMatchingPress} disabled={!isHost}>
+            <Text style={isHost ? styles.beginButtonText : styles.waitingButtonText}>
+              { isHost ? "Begin Matching" : "Waiting on host..." } 
+              </Text>
+          </TouchableOpacity>
+        </View>
 
     </View>
   );
@@ -61,38 +57,26 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: "#006607",
-    padding: 20,
+    padding: 40,
   },
   header: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 20,
   },
   headerText: {
     fontFamily: "SFProDisplay-Bold",
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 20,
     color: "#FFFFFF",
+    textAlign:"center"
   },
   backButton: {
-    alignSelf: "flex-start"
-  },
-  empty: {
-  },
-  friendsJoinedText: {
-    position: "absolute",
-    bottom: 7,
-    fontFamily: "SFProDisplay-Bold",
-    fontSize: 32,
-    color: "#FFFFFF",
-  },
-  logoImage: {
-    width: 100,
-    height: 100,
-    marginBottom: 10,
+    width: 30,
+    resizeMode: "contain",
     alignSelf: "center",
-    alignItems: "center",
   },
   codeText: {
     fontFamily: "SFProDisplay-Bold",
@@ -100,25 +84,23 @@ const styles = StyleSheet.create({
     fontSize: 60,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
   },
   bodyText: {
     fontFamily: "SFProDisplay-Bold",
     fontSize: 15,
     textAlign: "center",
     color: "#FFFFFF",
-    marginBottom: 10,
   },
   beginButton: {
+    marginTop: 10,
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "#FFFFFF",
     height: 45,
-    width: 228,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "stretch"
   },
   beginButtonText: {
     fontFamily: "SFProDisplay-Medium",
@@ -126,15 +108,15 @@ const styles = StyleSheet.create({
     color: "#006607",
   },
   waitingButton: {
+    marginTop: 10,
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "rgba(0, 0, 0, 0)",
     height: 45,
-    width: 228,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "stretch"
   },
   waitingButtonText: {
     fontFamily: "SFProDisplay-Medium",

@@ -5,12 +5,10 @@ export const TimesUpScreen: React.FC = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{flex: 1, justifyContent: "space-between"}}>
-        <View style={{marginTop: 30}}>
-          <Image style={styles.timesUpImage} source={require("../images/ic_watch_later_24px.png")}></Image>
-          <Text style={styles.timesUpText}>Time's up!</Text>
-          <Text style={styles.bodyText}>Please wait while the restaurants swipe back...</Text>
-        </View>
+      <View style={{ marginBottom: 40}}>
+        <Image style={styles.timesUpImage} source={require("../images/ic_watch_later_24px.png")}></Image>
+        <Text style={styles.timesUpText}>Time's up!</Text>
+        <Text style={styles.bodyText}>Please wait while the restaurants swipe back...</Text>
       </View>
     </View>
   );
@@ -19,15 +17,15 @@ export const TimesUpScreen: React.FC = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: "#006607",
     padding: 40,
-    
   },
   timesUpImage: {
-    marginTop: 100,
-    alignSelf: "center"
+    alignSelf: "center",
+    resizeMode: "center",
+    width: 250,
   },
   timesUpText: {
     fontFamily: "SFProDisplay-Bold",
