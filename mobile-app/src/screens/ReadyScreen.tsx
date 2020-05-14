@@ -8,11 +8,14 @@ export const ReadyScreen: React.FC = () => {
     const [countdown, setCountdown] = useState(3);
     const [readyText, setreadyText] = useState("Ready?");
     const [infoText, setInfoText] = useState(true);
+    const [buttonText, setButtonText] = useState("Start Swiping")
 
 
     const handleReady = () => {
         setEnabled(false);
         setreadyText("On your fork...");
+        setButtonText("Waiting for others...");
+        //Will change to wait on others
         setTimeout  (() => {
             setReady(true);
             setInfoText(false);
@@ -21,6 +24,10 @@ export const ReadyScreen: React.FC = () => {
 
     const countdownDone = () => {
         //TODO: Add change screen logic
+    }
+
+    const checkSessionReady = () => {
+        //TODO: Add logic to check if swiping session ready
     }
 
     const handleCountdown = () => {
@@ -46,19 +53,22 @@ export const ReadyScreen: React.FC = () => {
                 </Text>
             </View>
 
-            <View style={infoText ? styles.info : styles.infoDisbaled}>
-                <Image source={require("../images/ic_watch_later_24px.png")}/>
-                 <View style={styles.textbox}>
-                    <Text style={styles.text}>You will have 120 seconds to swipe through the restaurants</Text>
-                 </View>
+            <View>
+                <View style={infoText ? styles.info : styles.infoDisbaled}>
+                    <Image source={require("../images/ic_watch_later_24px.png")}/>
+                        <View style={styles.textbox}>
+                        <Text style={styles.text}>You will have 120 seconds to swipe through the restaurants</Text>
+                        </View>
+                </View>
+                <TouchableOpacity
+                    style={enabled ? styles.buttonEnabled : styles.buttonDisabled} 
+                    onPress={handleReady}   
+                    disabled={!enabled} 
+                >
+                    <Text style={enabled ? styles.enabledButtonText : styles.disabledButtonText}>{buttonText}</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity
-                style={enabled ? styles.buttonEnabled : styles.buttonDisabled} 
-                onPress={handleReady}   
-                disabled={!enabled} 
-            >
-                <Text style={enabled ? styles.enabledButtonText : styles.disabledButtonText}>Start Swiping</Text>
-            </TouchableOpacity>
+
 
         </View>
     );
@@ -91,6 +101,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 10
     },
     textbox: {
         width: 235,
