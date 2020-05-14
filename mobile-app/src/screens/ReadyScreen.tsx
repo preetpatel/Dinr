@@ -1,28 +1,32 @@
-import React, { constructor, useState } from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity, Button } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 
 export const ReadyScreen: React.FC = () => {
 
-    const [loading, setLoading] = useState(true);
+    const [enabled, setEnabled] = useState(true);
+    const [ready, setReady] = useState(false);
     const [countdown, setCountdown] = useState(3);
-    const [loadingText, setLoadingText] = useState("Getting Ready...");
+    const [readyText, setreadyText] = useState("Ready?");
 
-    const handleLoadingDone = ()  => {
-        setLoading(false);
-    }
 
     const handleReady = () => {
-        // logic for next screen
+        setEnabled(false);
+        setreadyText("On your fork...");
+        setTimeout  (() => {
+            setReady(true);
+        }, 1000)
+    }
+
+    const countdownDone = () => {
+        //TODO: Add change screen logic
     }
 
     const handleCountdown = () => {
         let intID = setInterval (() => {
-            if(!loading){
+            if(ready){
                 if(countdown ===  1){
                     clearInterval(intID);
-                    setLoadingText("Start!");
-                    setLoading(true);
-                    handleReady();
+                    countdownDone();
                 } else {
                     setCountdown(countdown - 1)
                 }
@@ -36,7 +40,7 @@ export const ReadyScreen: React.FC = () => {
                 <Image source={require("../images/burgers.png")} style={styles.burgers}/>
                 <Text style={styles.tagline}>
                     {handleCountdown()}
-                    {loading ? loadingText : countdown }
+                    {ready ? countdown : readyText }
                 </Text>
             </View>
 
@@ -46,7 +50,13 @@ export const ReadyScreen: React.FC = () => {
                     <Text style={styles.text}>You will have 120 seconds to swipe through the restaurants</Text>
                  </View>
             </View>
-            <Button onPress={handleLoadingDone} title="Start Countdown"/>
+            <TouchableOpacity
+                style={enabled ? styles.buttonEnabled : styles.buttonDisabled} 
+                onPress={handleReady}   
+                disabled={!enabled} 
+            >
+                <Text style={enabled ? styles.enabledButtonText : styles.disabledButtonText}>Start Swiping</Text>
+            </TouchableOpacity>
 
         </View>
     );
@@ -88,7 +98,36 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: "#FFFFFF",
         textAlign: "center"
-    }
+    },
+    buttonEnabled: {
+        borderRadius: 15,
+        borderColor: "#FFFFFF",
+        borderWidth: 2,
+        backgroundColor: "#FFFFFF",
+        height: 45,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonDisabled: {
+        borderRadius: 15,
+        borderColor: "#FFFFFF",
+        borderWidth: 2,
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        height: 45,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    disabledButtonText: {
+        fontFamily: "SFProDisplay-Medium",
+        fontSize: 20,
+        color: "#FFFFFF",
+    },
+    enabledButtonText: {
+        fontFamily: "SFProDisplay-Medium",
+        fontSize: 20,
+        color: "#006607",
+    },
+
 
   });
   
