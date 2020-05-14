@@ -6,12 +6,12 @@ name: Build server
 on:
   push:
     branches: [ master ]
-    paths-ignore:
-    - 'mobile-app/**'
+    paths:
+    - './server/**'
   pull_request:
     branches: [ master ]
-    paths-ignore:
-    - 'mobile-app/**'
+    paths:
+    - './server/**'
 
 jobs:
   build:
