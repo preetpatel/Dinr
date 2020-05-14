@@ -7,6 +7,7 @@ export const ReadyScreen: React.FC = () => {
     const [ready, setReady] = useState(false);
     const [countdown, setCountdown] = useState(3);
     const [readyText, setreadyText] = useState("Ready?");
+    const [infoText, setInfoText] = useState(true);
 
 
     const handleReady = () => {
@@ -14,6 +15,7 @@ export const ReadyScreen: React.FC = () => {
         setreadyText("On your fork...");
         setTimeout  (() => {
             setReady(true);
+            setInfoText(false);
         }, 1000)
     }
 
@@ -44,7 +46,7 @@ export const ReadyScreen: React.FC = () => {
                 </Text>
             </View>
 
-            <View style={styles.info}>
+            <View style={infoText ? styles.info : styles.infoDisbaled}>
                 <Image source={require("../images/ic_watch_later_24px.png")}/>
                  <View style={styles.textbox}>
                     <Text style={styles.text}>You will have 120 seconds to swipe through the restaurants</Text>
@@ -127,7 +129,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "#006607",
     },
-
-
+    infoDisbaled: {
+        display: "none",
+    }
   });
   
