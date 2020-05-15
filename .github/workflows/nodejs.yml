@@ -6,12 +6,30 @@ name: Build server
 on:
   push:
     branches: [ master ]
-    paths:
-    - './server/**'
+    paths-ignore:
+    - 'mobile-app/**'
+    - '.gitignore'
+    - 'CODE_OF_CONDUCT.md'
+    - 'Contributions.md'
+    - 'LICENSE'
+    - 'README.md'
+    - '.github/ISSUE_TEMPLATE'
+    - '.github/pull_request_template.md'
+    - '.github/workflows/mobile.yml'
+    - '.github/workflows/azure.yml'
   pull_request:
     branches: [ master ]
-    paths:
-    - './server/**'
+    paths-ignore:
+    - 'mobile-app/**'
+    - '.gitignore'
+    - 'CODE_OF_CONDUCT.md'
+    - 'Contributions.md'
+    - 'LICENSE'
+    - 'README.md'
+    - '.github/ISSUE_TEMPLATE'
+    - '.github/pull_request_template.md'
+    - '.github/workflows/mobile.yml'
+    - '.github/workflows/azure.yml'
 
 jobs:
   build:
