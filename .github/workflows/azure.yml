@@ -13,7 +13,7 @@ name: Deploy server
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths-ignore: 
     - 'mobile-app/**'
     - '.gitignore'
     - 'CODE_OF_CONDUCT.md'
