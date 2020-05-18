@@ -11,7 +11,7 @@ export class FilterService {
     }
 
     private filterByCuisines(allRestaurants: Restaurant[], cuisines: string): Restaurant[] {
-        let cuisineList: string[] = cuisines.split(" ");
+        let cuisineList: string[] = cuisines.toLowerCase().split(" ");
         let filteredRestaurants: Restaurant[] = [];
 
         allRestaurants.forEach(restaurant => {
