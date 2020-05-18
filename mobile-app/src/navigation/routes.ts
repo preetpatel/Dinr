@@ -10,6 +10,9 @@ type RouteDefinition = {
 export type RouteName =
    "HomeScreen"
   | "SwipeScreen"
+  | "ResultsScreen"
+  | "TimesUpScreen"
+  | "WaitingScreen"
   | "SetupSessionScreen";
 
 type Routes = {
@@ -23,6 +26,18 @@ export const Routes: Routes = {
   },
   SwipeScreen: {
     title: "Swipe Screen",
+    headerShown: false,
+  },
+  ResultsScreen: {
+    title: "Results Screen",
+    headerShown: false,
+  },
+  TimesUpScreen: {
+    title: "Times Up Screen",
+    headerShown: false,
+  },
+  WaitingScreen: {
+    title: "Waiting Screen",
     headerShown: false,
   },
   SetupSessionScreen: {

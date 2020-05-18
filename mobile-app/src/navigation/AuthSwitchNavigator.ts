@@ -5,6 +5,9 @@ import {HomeScreen} from "@screens/HomeScreen";
 import {SwipeScreen} from "@screens/SwipeScreen";
 import {createStackNavigator} from "react-navigation-stack";
 import {getDefaultNavigationOptions} from "@navigation/utils/defaultNavigationOptions";
+import { WaitingScreen } from "@screens/WaitingScreen";
+import { TimesUpScreen } from "@screens/TimesUpScreen";
+import { ResultsScreen } from "@screens/ResultsScreen";
 import { SetupSessionScreen } from "@screens/SetupSessionScreen";
 
 // Stack navigators are useful for when you want the user to go back.. like swiping through pages. For example the setup
@@ -24,6 +27,9 @@ export const AuthSwitchNavigator = createSwitchNavigator(
   {
       HomeScreen: SetupStackNavigator,
       SwipeScreen: SwipeScreen,
+      WaitingScreen: WaitingScreen,
+      TimesUpScreen: TimesUpScreen,
+      ResultsScreen: ResultsScreen,
       SetupSessionScreen: SetupSessionScreen,
   },
   {
