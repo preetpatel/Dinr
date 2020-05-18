@@ -9,10 +9,29 @@ on:
     branches: [ master ]
     paths-ignore:
     - 'server/**'
+    - '.gitignore'
+    - 'CODE_OF_CONDUCT.md'
+    - 'Contributions.md'
+    - 'LICENSE'
+    - 'README.md'
+    - '.github/ISSUE_TEMPLATE'
+    - '.github/pull_request_template.md'
+    - '.github/workflows/nodejs.yml'
+    - '.github/workflows/azure.yml'
+
   pull_request:
     branches: [ master ]
     paths-ignore:
     - 'server/**'
+    - '.gitignore'
+    - 'CODE_OF_CONDUCT.md'
+    - 'Contributions.md'
+    - 'LICENSE'
+    - 'README.md'
+    - '.github/ISSUE_TEMPLATE'
+    - '.github/pull_request_template.md'
+    - '.github/workflows/nodejs.yml'
+    - '.github/workflows/azure.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
