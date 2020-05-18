@@ -9,7 +9,8 @@ type RouteDefinition = {
 
 export type RouteName =
    "HomeScreen"
-  | "SwipeScreen";
+  | "SwipeScreen"
+  | "ReadyScreen";
 
 type Routes = {
   readonly [Name in RouteName]: RouteDefinition;
@@ -22,6 +23,10 @@ export const Routes: Routes = {
   },
   SwipeScreen: {
     title: "Swipe Screen",
+    headerShown: false,
+  },
+  ReadyScreen: {
+    title: "Ready Screen",
     headerShown: false,
   }
 };

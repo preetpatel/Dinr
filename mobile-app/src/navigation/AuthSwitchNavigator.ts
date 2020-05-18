@@ -3,6 +3,7 @@ import { createSwitchNavigator } from "react-navigation";
 import { getRouteTitle } from "./routes";
 import {HomeScreen} from "@screens/HomeScreen";
 import {SwipeScreen} from "@screens/SwipeScreen";
+import {ReadyScreen} from "@screens/ReadyScreen";
 import {createStackNavigator} from "react-navigation-stack";
 import {getDefaultNavigationOptions} from "@navigation/utils/defaultNavigationOptions";
 
@@ -22,7 +23,9 @@ const SetupStackNavigator = createStackNavigator(
 export const AuthSwitchNavigator = createSwitchNavigator(
   {
       HomeScreen: SetupStackNavigator,
+      ReadyScreen: ReadyScreen,
       SwipeScreen: SwipeScreen
+    
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
