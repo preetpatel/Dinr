@@ -10,6 +10,7 @@ type RouteDefinition = {
 export type RouteName =
    "HomeScreen"
   | "SwipeScreen"
+  | "ReadyScreen"
   | "ResultsScreen"
   | "TimesUpScreen"
   | "WaitingScreen"
@@ -26,6 +27,10 @@ export const Routes: Routes = {
   },
   SwipeScreen: {
     title: "Swipe Screen",
+    headerShown: false,
+  },
+  ReadyScreen: {
+    title: "Ready Screen",
     headerShown: false,
   },
   ResultsScreen: {
