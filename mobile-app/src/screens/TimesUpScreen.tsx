@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, Image, View} from "react-native";
+import {useNavigation} from "@navigation/hooks/useNavigation";
 
 export const TimesUpScreen: React.FC = () => {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate("ResultsScreen");
+    }, 1000)
+  })
 
   return (
     <View style={styles.mainContainer}>

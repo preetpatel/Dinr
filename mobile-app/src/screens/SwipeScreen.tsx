@@ -25,7 +25,7 @@ export const SwipeScreen: React.FC = () => {
       setTime((time: number) => {
         const newTime = time - 1;
         if (newTime == 0) {
-          navigation.navigate("HomeScreen") // TODO Called when timer is over.. navigates to next screen
+          navigation.navigate("TimesUpScreen") // TODO Called when timer is over.. navigates to next screen
           return;
         } else {
           return newTime;
@@ -49,7 +49,7 @@ export const SwipeScreen: React.FC = () => {
 
   const handleOnComplete = () => {
     console.log("Swiping over. Redirecting back to home screen for now");
-    navigation.navigate("HomeScreen");
+    navigation.navigate("TimesUpScreen");
   }
 
   const handleSuperLike = (cardIndex: number) => {

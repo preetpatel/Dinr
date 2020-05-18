@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
 import { RestaurantTopPick } from "../components/RestaurantTopPick"
+import {useNavigation} from "@navigation/hooks/useNavigation";
+
 
 export const ResultsScreen: React.FC = () => {
-    const [restaurants, setRestaurants ] = useState("");
+  const navigation = useNavigation();
+  const [restaurants, setRestaurants ] = useState("");
 
   const donePress = () => {
     // TODO: Add change screen functionality here
+    navigation.navigate("HomeScreen");
   }
 
   return (
