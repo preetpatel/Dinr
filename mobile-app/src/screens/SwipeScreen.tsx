@@ -16,7 +16,7 @@ export const SwipeScreen: React.FC = () => {
   const [restaurantData, setRestaurantData] = useState();
   const [hasUsedSuperLike, setHasUsedSuperLike] = useState(false);
   const swipeComponent = useRef<Swiper>();
-
+  const DEFAULT_IMAGE: string = "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg"
   /**
    * Timer hook to count down and navigate
    */
@@ -71,9 +71,9 @@ export const SwipeScreen: React.FC = () => {
         <Swiper
             ref={(swiper: any) => {swipeComponent.current = swiper}}
           cards={restaurantData}
-          renderCard={(card: { restaurantName: string; uri: import("react-native").ImageProps; stars: number; price: number; distance: number; quote: string; }) => {
+          renderCard={(card: { name: string; image: string; rating: { ratingNumber: number }; priceRange: number; distance: number; address: string; }) => {
             return (
-                <Card name={card.restaurantName} imageURI={card.uri} stars={card.stars} price={card.price} distance={card.distance} quote={card.quote}/>
+                <Card name={card.name} imageURI={card.image !== "" ? card.image : DEFAULT_IMAGE} stars={card.rating} price={card.priceRange} distance={card.distance} address={card.address}/>
             )
           }}
           onSwipedLeft={(cardIndex: number) => {console.log(cardIndex + " swiped Left")}}

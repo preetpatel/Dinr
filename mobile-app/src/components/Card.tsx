@@ -1,4 +1,4 @@
-import { Image, ImageProps, StyleSheet, Text, View} from "react-native";
+import { Image, StyleSheet, Text, View} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import {ReviewStars} from "@components/ReviewStars";
 import {PriceSymbols} from "@components/PriceSymbol";
@@ -7,26 +7,26 @@ import React from "react";
 
 export type CardParams = {
     readonly name: string;
-    readonly imageURI: ImageProps;
-    readonly stars: number;
+    readonly imageURI: string;
+    readonly stars: { ratingNumber: number };
     readonly price: number;
     readonly distance: number;
-    readonly quote: string;
+    readonly address: string;
 };
 
 export const Card: React.FC<CardParams> = (props) => {
     return (
         <View style={styles.card}>
-            <Image style={styles.cardImage} source={props.imageURI}/>
+            <Image style={styles.cardImage} source={{uri: props.imageURI}}/>
             <LinearGradient colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.25)"]} style={styles.imageOverlay} />
             <View style={styles.restaurantInfo}>
                 <Text style={styles.restaurantName}>{props.name}</Text>
                 <View style={styles.restaurantReview}>
-                    <ReviewStars count={props.stars}/>
-                    <PriceSymbols count={props.price}/>
-                    <LocationSymbol distanceInKM={props.distance}/>
+                    <ReviewStars count={Math.round(props.stars.ratingNumber)}/>
+                    <PriceSymbols count={Math.round(props.price)}/>
+                    <LocationSymbol distanceInKM={Math.round(props.distance)}/>
                 </View>
-                <Text numberOfLines={2} style={styles.restaurantQuote}>{props.quote}</Text>
+                <Text numberOfLines={2} style={styles.restaurantQuote}>{props.address}</Text>
             </View>
         </View>
     )
