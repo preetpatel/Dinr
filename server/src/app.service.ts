@@ -23,6 +23,7 @@ export class AppService {
       this.originalLat = lat;
       this.originalLon = lon;
 
+
       // Search given distance modifier  
       this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, distanceMod); 
 
@@ -30,24 +31,35 @@ export class AppService {
       this.filteredRestaurants = this.filterService.filterResults(this.allRestaurants, cuisines, priceRange);
 
       // Get distances for each restaurant that we've gotten back
-      await this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
+      this.filteredRestaurants = await this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
 
+      console.log(this.filteredRestaurants);
       return this.filteredRestaurants;
   }
 
-  async getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number): Promise<void> {
+  async getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number): Promise<Restaurant[]> {
 
     let distance: number = 0;
 
+    let index: number;
+
     for (let restaurant of restaurants){
-      distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude)/1000;
+      distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
       if(distance <= distanceMod){
         restaurant.distance = distance;
+        // index = restaurants.indexOf(restaurant);
+        // restaurants.splice(index,1);
       }
     } 
+
     // Filter out any restaurants that are too far away
-    restaurants.filter(function(res: Restaurant) {
-      res.distance <= distanceMod;
-    })
+    for(let restaurant of restaurants){
+      if(restaurant.distance == null){
+        index = restaurants.indexOf(restaurant);
+        restaurants.splice(index, 1);
+      }
+    }
+
+    return restaurants;
   }
 }

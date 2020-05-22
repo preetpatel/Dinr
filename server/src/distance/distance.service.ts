@@ -7,29 +7,20 @@ export class DistanceService {
     
     constructor() {}
 
-    protected baseAddress: string = "https://trueway-matrix.p.rapidapi.com/CalculateDrivingMatrix";
-
-    protected headersRequest = {
-        "content-type":"application/json",
-        "x-rapidapi-host":"trueway-matrix.p.rapidapi.com",
-        "x-rapidapi-key":"0604765222mshc68469b6f8fb753p1141f5jsnecf812c2571d"
-    }
+    protected key: string = "At3oxwK4IkO_k6uB_ML6xXu9sSO_ZACH1BeCm1S8qZcIYI5bY8QvPBquVqLH800U";
 
     public async getDistance(originLat: number, originLon: number, destLat: number, destLon: number): Promise<number> {
 
-        // Using Trueway API to calculate driving distance between user and restaurant 
-        let coords = {
-            "destinations": `${destLat}%2C${destLon}%3B`,
-            "origins": `${originLat}%2C${originLon}%3B;`
-        }
-        try {
-            const response = await axios({
-                method: 'GET', 
-                url: `${this.baseAddress}`, 
-                headers: this.headersRequest, params: coords
-            });
 
-            return response.data.distances[0];
+        // Use Bing Maps API to get distance of restaurants
+        try {
+
+            let url: string = `http://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${originLat},${originLon}&destinations=${destLat},${destLon}&travelMode=driving&key=${this.key}&distanceUnit=kilometer&timeUnit=minutes`;
+            
+
+            const response = await axios.get(url);
+
+            return response.data.resourceSets[0].resources[0].results[0].travelDistance;
     
         } catch (err) {
             console.log(err);
