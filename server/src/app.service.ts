@@ -49,7 +49,7 @@ export class AppService {
     return interaction;
   }
 
-  private getRestaurantData = async (interactionID: string) => {
+  async getRestaurantData(interactionID: string) {
     const interaction: Interaction = this.interactions.get(interactionID);
     if (interaction.allRestaurants.length == 0) {
       let allRestaurants = await this.getRestaurants(interaction.lat,interaction.lon,interaction.cuisines.toString(),interaction.priceLevel)

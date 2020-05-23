@@ -17,6 +17,11 @@ export class AppController {
     return this.appService.getInteraction(params.id)
   }
 
+  @Get('/restaurantData/:id')
+  getRestaurantData(@Param() params) {
+    return this.appService.getRestaurantData(params.id)
+  }
+
 }
 
 
