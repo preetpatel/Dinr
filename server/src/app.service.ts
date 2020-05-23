@@ -22,12 +22,12 @@ export class AppService {
   private interactions = new Map<string, Interaction>();
 
   async getRestaurants(lat: number, lon: number,
-    cuisines: string, priceRange: number ): Promise<Restaurant[]> {
+    cuisines: string): Promise<Restaurant[]> {
       this.originalLat = lat;
       this.originalLon = lon;
 
       // Search given distance modifier
-      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange);
+      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines);
 
       // Get distances for each restaurant that we've gotten back
       this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants);
@@ -52,7 +52,7 @@ export class AppService {
   async getRestaurantData(interactionID: string) {
     const interaction: Interaction = this.interactions.get(interactionID);
     if (interaction.allRestaurants.length == 0) {
-      let allRestaurants = await this.getRestaurants(interaction.lat,interaction.lon,interaction.cuisines.toString(),interaction.priceLevel)
+      let allRestaurants = await this.getRestaurants(interaction.lat,interaction.lon,interaction.cuisines.toString())
       interaction.allRestaurants.push(...allRestaurants)
     }
     return interaction.allRestaurants;
