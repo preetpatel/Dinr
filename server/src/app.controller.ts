@@ -22,6 +22,16 @@ export class AppController {
     return this.appService.getRestaurantData(params.id)
   }
 
+  @Get('/getFriends/:id')
+  getFriendCount(@Param() params) {
+    return this.appService.getFriendCount(params.id)
+  }
+
+  @Get('/addFriend/:id')
+  increaseFriendCount(@Param() params) {
+    return this.appService.increaseFriendCount(params.id)
+  }
+
 }
 
 

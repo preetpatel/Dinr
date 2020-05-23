@@ -19,7 +19,7 @@ export class AppService {
   allRestaurants: Restaurant[];
 
 
-  private interactions = new Map();
+  private interactions = new Map<string, Interaction>();
 
   async getRestaurants(lat: number, lon: number,
     cuisines: string, priceRange: number ): Promise<Restaurant[]> {
@@ -59,11 +59,18 @@ export class AppService {
   }
 
   getInteraction(id: string) {
-
     if (!this.interactions.has(id)) {
       return ['Error: Session Code not found'];
     }
     return this.interactions.get(id);
+  }
+
+  async getFriendCount(id: string) {
+    return this.interactions.get(id).peopleJoined;
+  }
+
+  increaseFriendCount(id: string) {
+    this.interactions.get(id).peopleJoined += 1;
   }
 
 }

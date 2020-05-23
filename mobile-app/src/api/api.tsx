@@ -17,3 +17,13 @@ export const setupInteraction = async (lat: number, lon: number, cuisines: strin
         console.log("An error occurred " + e.message)
     }
 }
+
+export const getFriendsJoinedCount = async (id: string) => {
+    const url = `${BACKEND}/getFriends/` + id;
+    try {
+        const result = await axios.get(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred getting the friend count")
+    }
+}

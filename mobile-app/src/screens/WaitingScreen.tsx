@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity, ImageBackground} from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
+import {getFriendsJoinedCount} from "../api/api";
 
 export type WaitingScreenNavigationParams = {
   readonly isHost: boolean;
@@ -9,16 +10,19 @@ export type WaitingScreenNavigationParams = {
 
 export const WaitingScreen: React.FC = () => {
   const navigation = useNavigation();
-  const [isHost, setHost ] = useState(true);
-  const [friendsJoined, setFriendsJoined ] = useState(1);
-  const [ joinCode, changeJoinCode ] = useState("FETCHING...");
+  // @ts-ignore
+  const [isHost, setHost ] = useState(navigation.getParam('isHost'));
+  const [friendsJoined, setFriendsJoined ] = useState(0);
+  // @ts-ignore
+  const [ joinCode, changeJoinCode ] = useState(navigation.getParam("code"));
 
   useEffect(() => {
-    // @ts-ignore
-    setHost(navigation.getParam('isHost'));
-    // @ts-ignore
-    changeJoinCode(navigation.getParam("code"));
+    setInterval(async () => {
+      const count = await getFriendsJoinedCount(joinCode);
+      await setFriendsJoined(count -1);
+    }, 1000)
   })
+
   const backPress = () => {
     // TODO: Add change screen functionality here
   }
