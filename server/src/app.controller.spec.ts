@@ -18,6 +18,7 @@ describe('AppController', () => {
   let setupService: SetupService;
 
   beforeEach(async () => {
+    jest.setTimeout(18000);
     distanceService = new DistanceService;
     restaurantsService = new RestaurantsService;
     filterService = new FilterService;
@@ -33,7 +34,7 @@ describe('AppController', () => {
       let params: any = {
         lat: -36.9201,
         lon: 174.7574,
-        cuisines: 'Indian Thai',
+        cuisines: 'Indian, Thai',
         priceRange: 3 
       }
 
