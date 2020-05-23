@@ -16,17 +16,14 @@ export const WaitingScreen: React.FC = () => {
   // @ts-ignore
   const [ joinCode, changeJoinCode ] = useState(navigation.getParam("code"));
 
-  useEffect(() => {
-    setInterval(async () => {
-      const count = await getFriendsJoinedCount(joinCode);
-      await setFriendsJoined(count -1);
-    }, 1000)
-  })
+  const intervalID = setInterval(async () => {
+    const count = await getFriendsJoinedCount(joinCode);
+    await setFriendsJoined(count -1);
+  }, 1000)
 
   const beginMatchingPress = () => {
-    // TODO: Add change screen functionality here
-    navigation.navigate("ReadyScreen");
-
+    clearInterval(intervalID)
+    navigation.navigate("ReadyScreen", {code: joinCode});
   }
 
   return (

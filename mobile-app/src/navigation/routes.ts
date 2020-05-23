@@ -1,6 +1,7 @@
 import * as R from "ramda";
 import { SwipeScreenNavigationParams } from "@screens/SwipeScreen";
 import {WaitingScreenNavigationParams} from "@screens/WaitingScreen";
+import {ReadyScreenNavigationParams} from "@screens/ReadyScreen";
 
 type RouteDefinition = {
   readonly title: string;
@@ -57,6 +58,7 @@ export const Routes: Routes = {
 export type NavigationParamsMap = {
   readonly SwipeScreen: SwipeScreenNavigationParams;
   readonly WaitingScreen: WaitingScreenNavigationParams;
+  readonly ReadyScreen: ReadyScreenNavigationParams;
 };
 
 export const getRouteIcon = (route: string): string | undefined => R.path([route, "icon"], Routes);

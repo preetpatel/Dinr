@@ -27,3 +27,13 @@ export const getFriendsJoinedCount = async (id: string) => {
         console.log("An error occurred getting the friend count")
     }
 }
+
+export const getRestaurantData = async (id: string) => {
+    const url = `${BACKEND}/restaurantData/` + id;
+    try {
+        const result = await axios.get(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred getting the restaurant data")
+    }
+}

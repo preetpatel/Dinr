@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
-import axios from "axios";
+import {getRestaurantData} from "../api/api";
+
+export type ReadyScreenNavigationParams = {
+  readonly code: string;
+};
 
 export const ReadyScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -12,14 +16,16 @@ export const ReadyScreen: React.FC = () => {
   const [infoText, setInfoText] = useState(true);
   const [buttonText, setButtonText] = useState("Start Swiping");
   const [restaurantData, setRestaurantData] = useState();
+  // @ts-ignore
+  const id = navigation.getParam("code");
 
   const handleReady = async (): Promise<void> => {
     setEnabled(false);
     setreadyText("On your fork...");
     setButtonText("Waiting for others...");
     // Will change to wait on others
-    const data = await axios.get("http://localhost:3000/-36.8534617/174.7731668/Indian/5");
-    setRestaurantData(data.data);
+    const data = await getRestaurantData(id)
+    setRestaurantData(data);
     setTimeout(() => {
       setReady(true);
       setInfoText(false);
