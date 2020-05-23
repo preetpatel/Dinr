@@ -24,15 +24,14 @@ export class AppService {
       this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange); 
 
       // Get distances for each restaurant that we've gotten back
-      this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants);
+      await this.getDistancesForRestaurants(this.allRestaurants);
 
       return this.allRestaurants;
   }
 
-  async getDistancesForRestaurants(restaurants: Restaurant[]): Promise<Restaurant[]> {
-    for (let restaurant of restaurants){
+  async getDistancesForRestaurants(restaurants: Restaurant[]): Promise<void> {
+    for (let restaurant of this.allRestaurants){
       restaurant.distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
     } 
-    return restaurants;
   }
 }
