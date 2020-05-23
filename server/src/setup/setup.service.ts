@@ -10,6 +10,7 @@ export class SetupService {
       interaction.priceLevel = priceLevel;
       interaction.lat = lat;
       interaction.lon = lon;
+      interaction.peopleJoined = 1;
       console.log(interaction);
       return interaction;
   }

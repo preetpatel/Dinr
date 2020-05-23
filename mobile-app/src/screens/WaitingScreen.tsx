@@ -1,13 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity, ImageBackground} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
+
+export type WaitingScreenNavigationParams = {
+  readonly isHost: boolean;
+  readonly code: string;
+};
 
 export const WaitingScreen: React.FC = () => {
   const navigation = useNavigation();
   const [isHost, setHost ] = useState(true);
-  const [friendsJoined, setFriendsJoined ] = useState(3);
-  const [ joinCode, changeJoinCode ] = useState("ABC124");
+  const [friendsJoined, setFriendsJoined ] = useState(1);
+  const [ joinCode, changeJoinCode ] = useState("FETCHING...");
 
+  useEffect(() => {
+    // @ts-ignore
+    setHost(navigation.getParam('isHost'));
+    // @ts-ignore
+    changeJoinCode(navigation.getParam("code"));
+  })
   const backPress = () => {
     // TODO: Add change screen functionality here
   }
@@ -38,13 +49,13 @@ export const WaitingScreen: React.FC = () => {
             <Text style={styles.bodyText}>Share this code with your friends</Text>
           </View>
         </View>
-        
+
 
         <View style={{ flex: 1, justifyContent: "flex-end"}}>
           { isHost ? <Text style={styles.bodyText}>And once everyone has joined</Text> : <View style={{ height: 28}}/> }
           <TouchableOpacity style={isHost ? styles.beginButton : styles.waitingButton} onPress={beginMatchingPress} disabled={!isHost}>
             <Text style={isHost ? styles.beginButtonText : styles.waitingButtonText}>
-              { isHost ? "Begin Matching" : "Waiting on host..." } 
+              { isHost ? "Begin Matching" : "Waiting on host..." }
               </Text>
           </TouchableOpacity>
         </View>

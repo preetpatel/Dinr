@@ -93,9 +93,12 @@ export const SetupSessionScreen: React.FC = () => {
   };
 
   const onContinuePress = async () => {
-    
+
    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
-   navigation.navigate("WaitingScreen", interactionData);
+   navigation.navigate("WaitingScreen", {
+     isHost: true,
+     code: interactionData.id,
+   });
   }
 
   const getChosenCuisines = () => {
