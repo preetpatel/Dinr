@@ -6,10 +6,10 @@ export class AppController {
 
   constructor(private readonly appService: AppService) {}
 
-  @Get('/:lat/:lon/:distanceMod/:cuisines/:priceRange')
+  @Get('/:lat/:lon/:cuisines/:priceRange')
   getRestaurants(@Param() params) {
     return this.appService.getRestaurants(params.lat, params.lon, 
-      params.distanceMod, params.cuisines, params.priceRange);
+      params.cuisines, params.priceRange);
   }
 }
 
