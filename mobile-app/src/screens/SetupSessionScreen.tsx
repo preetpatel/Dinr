@@ -34,32 +34,32 @@ export const SetupSessionScreen: React.FC = () => {
       id: 2,
     },
     {
-      name: "French",
+      name: "European",
       selected: false,
       id: 4,
     },
     {
-      name: "Spanish",
+      name: "Cafe Food",
       selected: false,
       id: 5,
     },
     {
-      name: "Brunch",
+      name: "Coffee and Tea",
       selected: false,
       id: 11,
     },
     {
-      name: "Dessert",
+      name: "Desserts",
       selected: false,
       id: 12,
     },
     {
-      name: "Ice cream",
+      name: "Asian",
       selected: false,
       id: 13,
     },
     {
-      name: "Bubble tea",
+      name: "Chinese",
       selected: false,
       id: 14,
     },
