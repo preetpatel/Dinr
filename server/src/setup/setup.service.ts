@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Interaction } from 'src/models/interaction';
+import { Interaction } from '../models/interaction';
 
 @Injectable()
 export class SetupService {
@@ -18,7 +18,5 @@ export class SetupService {
       let code: string = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
       return code;
   }
-
-
 
 }
