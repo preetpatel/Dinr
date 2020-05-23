@@ -84,9 +84,9 @@ export const SetupSessionScreen: React.FC = () => {
     navigation.navigate("HomeScreen");
   };
 
-  const onContinuePress = () => {
-    let interactionData: any = setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
-    navigation.navigate("WaitingScreen");
+  const onContinuePress = async () => {
+    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
+    navigation.navigate("WaitingScreen", interactionData);
   }
 
   const getChosenCuisines = () => {
@@ -136,11 +136,11 @@ export const SetupSessionScreen: React.FC = () => {
             <Text style={styles.sliderHeaderText}>Price</Text>
             <Text style={styles.sliderValueText}>{displayPrice()}</Text>
           </View>
-          <Slider 
-            step={1} 
+          <Slider
+            step={1}
             minimumValue={1}
-            maximumValue={5} 
-            onValueChange={(value) => {changePrice(value)}} 
+            maximumValue={5}
+            onValueChange={(value) => {changePrice(value)}}
             value={priceLevel}
             maximumTrackTintColor="rgba(255, 255, 255, 0.5)"
             minimumTrackTintColor="#FFFFFF"
@@ -151,12 +151,12 @@ export const SetupSessionScreen: React.FC = () => {
           </View>
         </View>
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         disabled={!enableButton}
-        style={enableButton ? styles.buttonEnabled : styles.buttonDisabled} 
+        style={enableButton ? styles.buttonEnabled : styles.buttonDisabled}
         onPress={onContinuePress}
       >
-        <Text 
+        <Text
           style={enableButton ? styles.enabledButtonText :  styles.disabledButtonText}
         >
           Invite Friends
@@ -170,7 +170,7 @@ const CuisinesGrid = (props: CuisineGridProps) => {
   let numCols = Math.ceil(props.cuisines.length / 4);
 
   return (
-    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>            
+    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>
       <ScrollView
         showsHorizontalScrollIndicator={false}
         horizontal={true}
@@ -195,8 +195,8 @@ const CuisinesGrid = (props: CuisineGridProps) => {
             }
 
             return (
-              <TouchableOpacity 
-                key={item.id} 
+              <TouchableOpacity
+                key={item.id}
                 style={[item.selected ? styles.cuisineSelected : styles.cuisineUnselected, {marginLeft: marginLeft, marginRight: marginRight}]}
                 onPress={() => props.onCuisinePress(item)}
               >
