@@ -18,7 +18,7 @@ export const ReadyScreen: React.FC = () => {
     setreadyText("On your fork...");
     setButtonText("Waiting for others...");
     // Will change to wait on others
-    const data = await axios.get("http://localhost:3000/-36.8534617/174.7731668/30/Indian/5");
+    const data = await axios.get("http://localhost:3000/-36.8534617/174.7731668/Indian/5");
     setRestaurantData(data.data);
     setTimeout(() => {
       setReady(true);
