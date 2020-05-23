@@ -42,9 +42,9 @@ export class AppService {
     return restaurants;
   }
 
-  setupInteration(lat: number, lon: number, cuisines: string[], priceRange: number) {
+  setupInteration(lat: number, lon: number, cuisines: string[], priceLevel: number) {
     // Create new interaction
-    let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceRange, lat, lon);
+    let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceLevel, lat, lon);
     this.interactions.set(interaction.id, interaction);
     return interaction;
   }

@@ -3,11 +3,11 @@ import { Interaction } from 'src/models/interaction';
 
 @Injectable()
 export class SetupService {
-  createNewInteraction(cuisines: string[], priceRange: number, lat: number, lon: number) : Interaction {
+  createNewInteraction(cuisines: string[], priceLevel: number, lat: number, lon: number) : Interaction {
       let interaction : Interaction = new Interaction;
       interaction.id = this.generateSessionCode();
       interaction.cuisines = cuisines;
-      interaction.priceRange = priceRange;
+      interaction.priceLevel = priceLevel;
       interaction.lat = lat;
       interaction.lon = lon;
       console.log(interaction);

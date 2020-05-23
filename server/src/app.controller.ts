@@ -15,7 +15,7 @@ export class AppController {
 
   @Post('/setupInteraction')
   setupInteraction(@Body() setUp: SetUpDTO) {
-    return this.appService.setupInteration(setUp.lat, setUp.lon, setUp.cuisines, setUp.priceRange);
+    return this.appService.setupInteration(setUp.lat, setUp.lon, setUp.cuisines, setUp.priceLevel);
   }
 
   @Get('/interaction/:id')

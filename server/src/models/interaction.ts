@@ -3,7 +3,7 @@ import { Restaurant } from "./restaurant";
 export class Interaction {
     id: string;
     cuisines: string[];
-    priceRange: number;
+    priceLevel: number;
     peopleJoined: number;
     allRestaurants: Restaurant[];
     topThreeRestaurants: Restaurant[];
