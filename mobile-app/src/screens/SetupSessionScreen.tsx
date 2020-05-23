@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView, AppRegistry, AppState } from "react-native";
 import Slider from '@react-native-community/slider';
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import { setupInteraction } from "../api/api";
 
 interface Cuisine {
   name: string,
@@ -17,7 +18,9 @@ interface CuisineGridProps {
 export const SetupSessionScreen: React.FC = () => {
   const [priceLevel, changePrice] = React.useState(1);
   const navigation = useNavigation();
-  
+  const lat: number = 30;
+  const lon: number = 175;
+
   // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
     {
@@ -81,8 +84,20 @@ export const SetupSessionScreen: React.FC = () => {
     navigation.navigate("HomeScreen");
   };
 
-  const onContinuePress = () => {
-    navigation.navigate("WaitingScreen");
+  const onContinuePress = async () => {
+    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
+    navigation.navigate("WaitingScreen", interactionData);
+  }
+
+  const getChosenCuisines = () => {
+    let chosenCuisines: Cuisine[] = [];
+    for (let cuisine of cuisineState) {
+      if (cuisine.selected) {
+        chosenCuisines.push(cuisine);
+      }
+    }
+
+    return chosenCuisines.map(cuisine => cuisine.name);
   }
 
   const onCuisinePress = (cuisine: Cuisine) => {
@@ -121,11 +136,11 @@ export const SetupSessionScreen: React.FC = () => {
             <Text style={styles.sliderHeaderText}>Price</Text>
             <Text style={styles.sliderValueText}>{displayPrice()}</Text>
           </View>
-          <Slider 
-            step={1} 
+          <Slider
+            step={1}
             minimumValue={1}
-            maximumValue={5} 
-            onValueChange={(value) => {changePrice(value)}} 
+            maximumValue={5}
+            onValueChange={(value) => {changePrice(value)}}
             value={priceLevel}
             maximumTrackTintColor="rgba(255, 255, 255, 0.5)"
             minimumTrackTintColor="#FFFFFF"
@@ -136,12 +151,12 @@ export const SetupSessionScreen: React.FC = () => {
           </View>
         </View>
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         disabled={!enableButton}
-        style={enableButton ? styles.buttonEnabled : styles.buttonDisabled} 
+        style={enableButton ? styles.buttonEnabled : styles.buttonDisabled}
         onPress={onContinuePress}
       >
-        <Text 
+        <Text
           style={enableButton ? styles.enabledButtonText :  styles.disabledButtonText}
         >
           Invite Friends
@@ -155,7 +170,7 @@ const CuisinesGrid = (props: CuisineGridProps) => {
   let numCols = Math.ceil(props.cuisines.length / 4);
 
   return (
-    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>            
+    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>
       <ScrollView
         showsHorizontalScrollIndicator={false}
         horizontal={true}
@@ -180,8 +195,8 @@ const CuisinesGrid = (props: CuisineGridProps) => {
             }
 
             return (
-              <TouchableOpacity 
-                key={item.id} 
+              <TouchableOpacity
+                key={item.id}
                 style={[item.selected ? styles.cuisineSelected : styles.cuisineUnselected, {marginLeft: marginLeft, marginRight: marginRight}]}
                 onPress={() => props.onCuisinePress(item)}
               >
