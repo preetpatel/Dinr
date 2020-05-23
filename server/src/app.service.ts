@@ -2,64 +2,68 @@ import { Injectable } from '@nestjs/common';
 import { DistanceService } from './distance/distance.service';
 import { Restaurant } from './models/restaurant';
 import { SearchService } from './search/search.service';
-import { FilterService } from './filter/filter.service';
+import { SetupService } from './setup/setup.service';
+import { Interaction } from './models/interaction';
+
 
 @Injectable()
 export class AppService {
-
   constructor(
     private distanceService: DistanceService,
-    private filterService: FilterService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private setupService: SetupService,
     ) {}
 
   originalLat: number;
   originalLon: number;
   allRestaurants: Restaurant[];
-  filteredRestaurants: Restaurant[];
 
-  async getRestaurants(lat: number, lon: number, distanceMod: number, 
+
+  private interactions = new Map();
+
+  async getRestaurants(lat: number, lon: number,
     cuisines: string, priceRange: number ): Promise<Restaurant[]> {
       this.originalLat = lat;
       this.originalLon = lon;
 
-
-      // Search given distance modifier  
-      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, distanceMod); 
-
-      // Filter restaurants
-      this.filteredRestaurants = this.filterService.filterResults(this.allRestaurants, cuisines, priceRange);
+      // Search given distance modifier
+      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange);
 
       // Get distances for each restaurant that we've gotten back
-      this.filteredRestaurants = await this.getDistancesForRestaurants(this.filteredRestaurants, distanceMod);
+      this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants);
 
-      console.log(this.filteredRestaurants);
-      return this.filteredRestaurants;
+      return this.allRestaurants;
   }
 
-  async getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number): Promise<Restaurant[]> {
-
-    let distance: number = 0;
-
-    let index: number;
-
+  async getDistancesForRestaurants(restaurants: Restaurant[]): Promise<Restaurant[]> {
     for (let restaurant of restaurants){
-      distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
-      if(distance <= distanceMod){
-        restaurant.distance = distance;
-        // index = restaurants.indexOf(restaurant);
-        // restaurants.splice(index,1);
-      }
-    } 
-
-    // Filter out any restaurants that are too far away
-    for(let restaurant of restaurants){
-      if(restaurant.distance == null){
-        index = restaurants.indexOf(restaurant);
-        restaurants.splice(index, 1);
-      }
+      restaurant.distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
     }
-
     return restaurants;
   }
+
+  async setupInteraction(lat: number, lon: number, cuisines: string[], priceLevel: number) {
+    // Create new interaction
+    let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceLevel, lat, lon);
+    this.interactions.set(interaction.id, interaction);
+    return interaction;
+  }
+
+  private getRestaurantData = async (interactionID: string) => {
+    const interaction: Interaction = this.interactions.get(interactionID);
+    if (interaction.allRestaurants.length == 0) {
+      let allRestaurants = await this.getRestaurants(interaction.lat,interaction.lon,interaction.cuisines.toString(),interaction.priceLevel)
+      interaction.allRestaurants.push(...allRestaurants)
+    }
+    return interaction.allRestaurants;
+  }
+
+  getInteraction(id: string) {
+
+    if (!this.interactions.has(id)) {
+      return ['Error: Session Code not found'];
+    }
+    return this.interactions.get(id);
+  }
+
 }
