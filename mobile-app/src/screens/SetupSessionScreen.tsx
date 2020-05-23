@@ -25,17 +25,17 @@ export const SetupSessionScreen: React.FC = () => {
   // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
     {
-      name: "Indian",
+      name: "European",
       selected: false,
       id: 1,
     },
     {
-      name: "Italian",
+      name: "Fast Food",
       selected: false,
       id: 2,
     },
     {
-      name: "European",
+      name: "Chinese",
       selected: false,
       id: 4,
     },
@@ -50,7 +50,7 @@ export const SetupSessionScreen: React.FC = () => {
       id: 11,
     },
     {
-      name: "Desserts",
+      name: "Pizza",
       selected: false,
       id: 12,
     },
@@ -58,16 +58,6 @@ export const SetupSessionScreen: React.FC = () => {
       name: "Asian",
       selected: false,
       id: 13,
-    },
-    {
-      name: "Chinese",
-      selected: false,
-      id: 14,
-    },
-    {
-      name: "Japanese",
-      selected: false,
-      id: 15,
     },
   ];
 

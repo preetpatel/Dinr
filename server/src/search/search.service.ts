@@ -11,17 +11,16 @@ export class SearchService {
         private filterService: FilterService
     ){}
 
-    protected maxSearch: number = 10;
-    protected maxRestaurants: number = 12;
+    protected maxSearch: number = 5;
+    protected maxRestaurants: number = 9;
     protected lengthOneDegreeLat: number = 111.320;
-    protected deltaLat: number = 2*0.009;
+    protected deltaLat: number = 4*0.009;
     protected deltaLon: number = 0; 
     protected coordsSearched = [];
 
-
     protected restaurantsMap:Map<number, Restaurant> = new Map();
 
-    public async expandingSquaresearch (originLat: number, originLon: number, cuisines: string, priceRange: number): Promise<Restaurant[]>  { 
+    public async expandingSquaresearch (originLat: number, originLon: number, cuisines: string): Promise<Restaurant[]>  { 
         
         let allRestaurants: Restaurant[] = [];
         let searching: boolean = true;
@@ -29,6 +28,8 @@ export class SearchService {
 
         // Set delta lon for current latitude
         this.deltaLon = this.twoKmLon(originLat);
+
+        this.restaurantsMap = new Map();
 
         while(searching){
             for(let x = 0; x < searchEnd; x++){
@@ -38,16 +39,17 @@ export class SearchService {
                         this.coordsSearched.push([x,y]);
 
                         // Get restaurants and check if this list has been filled
-                        if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat + x*this.deltaLat, originLon + y*this.deltaLon), cuisines, priceRange)){
+                        if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat + x*this.deltaLat, originLon + y*this.deltaLon), cuisines)){
+                          searching = false;                        
+                          break;
+                        } else if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat - x*this.deltaLat, originLon - y*this.deltaLon), cuisines)){
+                          searching = false;
+
+                          break;
+                        } else if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat + x*this.deltaLat, originLon - y*this.deltaLon), cuisines)){
                           searching = false;
                           break;
-                        } else if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat - x*this.deltaLat, originLon - y*this.deltaLon), cuisines, priceRange)){
-                          searching = false;
-                          break;
-                        } else if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat + x*this.deltaLat, originLon - y*this.deltaLon), cuisines, priceRange)){
-                          searching = false;
-                          break;
-                        } else if (this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat - x*this.deltaLat, originLon + y*this.deltaLon), cuisines, priceRange)){
+                        } else if (this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat - x*this.deltaLat, originLon + y*this.deltaLon), cuisines)){
                           searching = false;
                           break;
                         }
@@ -66,24 +68,30 @@ export class SearchService {
         
         // Convert map to an array to return
         for (let key of this.restaurantsMap.keys()){
+          if(allRestaurants.length < this.maxRestaurants){
             allRestaurants.push(<Restaurant>this.restaurantsMap.get(key));
+          }
         }
         return allRestaurants; 
     }
 
-    private catchDuplicates(restaurants: Restaurant[], cuisines: string, priceRange: number): boolean {
+    private catchDuplicates(restaurants: Restaurant[], cuisines: string): boolean {
         let listFull: boolean = false;
+
         if(restaurants !== null){
             restaurants.forEach(restaurant => {
-                if(!(this.restaurantsMap.has(restaurant.id))){
-                    if(this.filterService.checkRestaurant(restaurant, cuisines, priceRange)){
+                if(!(this.restaurantsMap.has(restaurant.id)) && !listFull){
+                    if(this.filterService.checkRestaurant(restaurant, cuisines)){
                         this.restaurantsMap.set(restaurant.id, restaurant);
-                        if(this.restaurantsMap.size == this.maxRestaurants){
-                            listFull = true;
+                        if(this.restaurantsMap.size === this.maxRestaurants){
+                          listFull = true;
                         }
-                    }
-                } 
+                    } 
+                }
             });
+        } else {
+          console.log("Zomato API License expired");
+          return true;
         }
         return listFull;
     }
@@ -101,7 +109,7 @@ export class SearchService {
 
     private twoKmLon(lat: number): number {
         let oneDegreeLonInKm = this.lengthOneDegreeLat*Math.cos(this.toRadians(lat));
-        return 2*(1/oneDegreeLonInKm);
+        return 4*(1/oneDegreeLonInKm);
     }
 
     private toRadians(deg: number): number {
