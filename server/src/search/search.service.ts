@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Restaurant } from '../models/restaurant';
 import { RestaurantsService } from '../restaurants/restaurants.service';
-import { FilterService } from 'src/filter/filter.service';
+import { FilterService } from '../filter/filter.service';
 
 @Injectable()
 export class SearchService {

@@ -5,8 +5,7 @@ import { DistanceService } from './distance/distance.service';
 import { RestaurantsService } from './restaurants/restaurants.service';
 import { FilterService } from './filter/filter.service';
 import { SearchService } from './search/search.service';
-import { Restaurant } from './models/restaurant';
-import { Rating } from './models/rating';
+
 
 describe('AppController', () => {
   let appController: AppController;
