@@ -1,8 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView, AppRegistry, AppState } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 import {useNavigation} from "@navigation/hooks/useNavigation";
 import { setupInteraction } from "../api/api";
+import Geolocation from "@react-native-community/geolocation";
 
 interface Cuisine {
   name: string,
@@ -18,8 +19,8 @@ interface CuisineGridProps {
 export const SetupSessionScreen: React.FC = () => {
   const [priceLevel, changePrice] = React.useState(1);
   const navigation = useNavigation();
-  const lat: number = 30;
-  const lon: number = 175;
+  const [lat, setLat] = React.useState(0);
+  const [lon, setLon] = React.useState(0);
 
   // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
@@ -72,6 +73,13 @@ export const SetupSessionScreen: React.FC = () => {
 
   const [cuisineState, changeCuisineState] = React.useState<Cuisine[]>(cuisines);
 
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(async (position) => {
+      setLat(Number(position.coords.latitude));
+      setLon(Number(position.coords.longitude));
+    });
+  });
   const displayPrice = () => {
     let value = "";
     for (let i = 0; i < priceLevel; i++) {
@@ -85,8 +93,9 @@ export const SetupSessionScreen: React.FC = () => {
   };
 
   const onContinuePress = async () => {
-    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
-    navigation.navigate("WaitingScreen", interactionData);
+    
+   let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
+   navigation.navigate("WaitingScreen", interactionData);
   }
 
   const getChosenCuisines = () => {
