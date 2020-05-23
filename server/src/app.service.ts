@@ -15,21 +15,21 @@ export class AppService {
   originalLon: number;
   allRestaurants: Restaurant[];
 
-  async getRestaurants(lat: number, lon: number, distanceMod: number, 
+  async getRestaurants(lat: number, lon: number,
     cuisines: string, priceRange: number ): Promise<Restaurant[]> {
       this.originalLat = lat;
       this.originalLon = lon;
 
       // Search given distance modifier  
-      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, distanceMod, cuisines, priceRange); 
+      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange); 
 
       // Get distances for each restaurant that we've gotten back
-      this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants, distanceMod);
+      this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants);
 
       return this.allRestaurants;
   }
 
-  async getDistancesForRestaurants(restaurants: Restaurant[], distanceMod: number): Promise<Restaurant[]> {
+  async getDistancesForRestaurants(restaurants: Restaurant[]): Promise<Restaurant[]> {
     for (let restaurant of restaurants){
       restaurant.distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
     } 

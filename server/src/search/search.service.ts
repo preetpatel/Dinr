@@ -21,7 +21,7 @@ export class SearchService {
 
     protected restaurantsMap:Map<number, Restaurant> = new Map();
 
-    public async expandingSquaresearch (originLat: number, originLon: number, distanceMod: number, cuisines: string, priceRange: number): Promise<Restaurant[]>  { 
+    public async expandingSquaresearch (originLat: number, originLon: number, cuisines: string, priceRange: number): Promise<Restaurant[]>  { 
         
         let allRestaurants: Restaurant[] = [];
         let searching: boolean = true;
@@ -30,8 +30,6 @@ export class SearchService {
         // Set delta lon for current latitude
         this.deltaLon = this.twoKmLon(originLat);
 
-
-        let coord: number[] = [2]; 
         while(searching){
             for(let x = 0; x < searchEnd; x++){
                 for(let y = 0; y < searchEnd; y++){

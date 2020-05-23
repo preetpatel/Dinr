@@ -5,6 +5,8 @@ import { DistanceService } from './distance/distance.service';
 import { RestaurantsService } from './restaurants/restaurants.service';
 import { FilterService } from './filter/filter.service';
 import { SearchService } from './search/search.service';
+import { Restaurant } from './models/restaurant';
+import { Rating } from './models/rating';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -18,9 +20,9 @@ describe('AppController', () => {
     distanceService = new DistanceService;
     restaurantsService = new RestaurantsService;
     filterService = new FilterService;
-    searchService = new SearchService(restaurantsService);
+    searchService = new SearchService(restaurantsService, filterService);
 
-    appService = new AppService(distanceService, filterService, searchService);
+    appService = new AppService(distanceService, searchService);
     appController = new AppController(appService);
   });
 
@@ -29,11 +31,11 @@ describe('AppController', () => {
       let params: any = {
         lat: -36.9201,
         lon: 174.7574,
-        distanceMod: 6,
-        cuisines: 'Indian',
+        cuisines: 'Indian Thai',
         priceRange: 3 
       }
-      expect(await appController.getRestaurants(params)).toEqual([]);
+
+      expect((await appController.getRestaurants(params)).length).toEqual(12);
     });
   });
 });
