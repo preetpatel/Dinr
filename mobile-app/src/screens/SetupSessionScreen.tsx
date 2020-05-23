@@ -15,7 +15,6 @@ interface CuisineGridProps {
 }
 
 export const SetupSessionScreen: React.FC = () => {
-  const [distance, changeDistance] = React.useState(1);
   const [priceLevel, changePrice] = React.useState(1);
   const navigation = useNavigation();
   
@@ -117,21 +116,6 @@ export const SetupSessionScreen: React.FC = () => {
         </View>
         <Image source={require("../images/logo-with-text.png")} style={styles.logo}/>
         <CuisinesGrid cuisines={cuisineState} onCuisinePress={onCuisinePress}/>
-        <View style={styles.sliderContainer}>
-          <View style={styles.sliderTextContainer}>
-            <Text style={styles.sliderHeaderText}>Distance</Text>
-            <Text style={styles.sliderValueText}>{distance} km</Text>
-          </View>
-          <Slider 
-            step={1} 
-            minimumValue={1}
-            maximumValue={50} 
-            onValueChange={(value) => {changeDistance(value)}} 
-            value={distance}
-            maximumTrackTintColor="rgba(255, 255, 255, 0.5)"
-            minimumTrackTintColor="#FFFFFF"
-          />
-        </View>
         <View style={styles.sliderContainer}>
           <View style={styles.sliderTextContainer}>
             <Text style={styles.sliderHeaderText}>Price</Text>
