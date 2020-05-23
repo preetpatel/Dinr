@@ -10,7 +10,6 @@ export class RestaurantsService {
 
     protected baseAddress: string = "https://developers.zomato.com/api/v2.1";
 
-<<<<<<< HEAD
     //Lola's
     // protected headersRequest = {
     //     'user-key': '98334e87fff8e40beb83e1609e380766'
@@ -33,13 +32,6 @@ export class RestaurantsService {
         'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
     };
 
-=======
-    protected headersRequest = {
-        'user-key': '98334e87fff8e40beb83e1609e380766'
-    };
-
-
->>>>>>> master
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
         let restaurantsForLocation: Restaurant[] = [];
@@ -58,11 +50,6 @@ export class RestaurantsService {
             return restaurantsForLocation;
             
         } catch (error) {
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
             //Need to handle if get null back...
             return null;
         }
