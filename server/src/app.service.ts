@@ -3,20 +3,26 @@ import { DistanceService } from './distance/distance.service';
 import { Restaurant } from './models/restaurant';
 import { SearchService } from './search/search.service';
 import { FilterService } from './filter/filter.service';
+import { SetupService } from './setup/setup.service';
+import { Interaction } from './models/interaction';
+
 
 @Injectable()
 export class AppService {
-
   constructor(
     private distanceService: DistanceService,
     private filterService: FilterService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private setupService: SetupService,
     ) {}
 
-  originalLat: number;
-  originalLon: number;
-  allRestaurants: Restaurant[];
-  filteredRestaurants: Restaurant[];
+  private originalLat: number;
+  private originalLon: number;
+  private allRestaurants: Restaurant[];
+  private filteredRestaurants: Restaurant[];
+
+
+  private interactions = new Map();
 
   async getRestaurants(lat: number, lon: number, distanceMod: number, 
     cuisines: string, priceRange: number ): Promise<Restaurant[]> {
@@ -59,7 +65,22 @@ export class AppService {
         restaurants.splice(index, 1);
       }
     }
-
     return restaurants;
   }
+
+  setupInteration(lat: number, lon: number, cuisines: string[], priceRange: number) {
+    // Create new interaction
+    let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceRange, lat, lon);
+    this.interactions.set(interaction.id, interaction);
+    return interaction;
+  }
+
+  getInteraction(id: string) {
+
+    if (!this.interactions.has(id)) {
+      return ['Error: Session Code not found'];
+    }
+    return this.interactions.get(id);
+  }
+
 }

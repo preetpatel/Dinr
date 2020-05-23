@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Put, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
+import { SetUpDTO } from './models/setUpDTO';
 
 @Controller()
 export class AppController {
@@ -11,6 +12,17 @@ export class AppController {
     return this.appService.getRestaurants(params.lat, params.lon, 
       params.distanceMod, params.cuisines, params.priceRange);
   }
+
+  @Post('/setupInteraction')
+  setupInteraction(@Body() setUp: SetUpDTO) {
+    return this.appService.setupInteration(setUp.lat, setUp.lon, setUp.cuisines, setUp.priceRange);
+  }
+
+  @Get('/interaction/:id')
+  getInteraction(@Param() params) {
+    return this.appService.getInteraction(params.id)
+  }
+
 }
 
 
