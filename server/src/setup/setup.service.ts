@@ -16,7 +16,7 @@ export class SetupService {
 
   generateSessionCode(): string {
       let code: string = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-      return code;
+      return code.toUpperCase();
   }
 
 }

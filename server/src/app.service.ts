@@ -26,8 +26,8 @@ export class AppService {
       this.originalLat = lat;
       this.originalLon = lon;
 
-      // Search given distance modifier  
-      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange); 
+      // Search given distance modifier
+      this.allRestaurants = await this.searchService.expandingSquaresearch(lat, lon, cuisines, priceRange);
 
       // Get distances for each restaurant that we've gotten back
       this.allRestaurants = await this.getDistancesForRestaurants(this.allRestaurants);
@@ -38,15 +38,24 @@ export class AppService {
   async getDistancesForRestaurants(restaurants: Restaurant[]): Promise<Restaurant[]> {
     for (let restaurant of restaurants){
       restaurant.distance = await this.distanceService.getDistance(this.originalLat, this.originalLon, restaurant.latitude, restaurant.longitude);
-    } 
+    }
     return restaurants;
   }
 
-  setupInteration(lat: number, lon: number, cuisines: string[], priceLevel: number) {
+  async setupInteraction(lat: number, lon: number, cuisines: string[], priceLevel: number) {
     // Create new interaction
     let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceLevel, lat, lon);
     this.interactions.set(interaction.id, interaction);
     return interaction;
+  }
+
+  private getRestaurantData = async (interactionID: string) => {
+    const interaction: Interaction = this.interactions.get(interactionID);
+    if (interaction.allRestaurants.length == 0) {
+      let allRestaurants = await this.getRestaurants(interaction.lat,interaction.lon,interaction.cuisines.toString(),interaction.priceLevel)
+      interaction.allRestaurants.push(...allRestaurants)
+    }
+    return interaction.allRestaurants;
   }
 
   getInteraction(id: string) {
