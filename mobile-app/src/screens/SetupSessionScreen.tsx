@@ -198,12 +198,12 @@ const CuisinesGrid = (props: CuisineGridProps) => {
             let marginRight = 7.5;
             let marginLeft = 7.5;
             if (index === numCols || index === 3 * numCols) {
-              marginLeft = 70;
+              marginLeft = 30;
             } else if (index === 0 || index === 2 * numCols) {
-              marginLeft = 40;
+              marginLeft = 10;
             }
             if (index === numCols - 1 || index === 2 * numCols - 1 || index === 3 * numCols - 1 || index === 4 * numCols - 1) {
-              marginRight = 40;
+              marginRight = 20;
             }
 
             return (
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   },
   cuisineUnselected: {
     margin: 5,
-    width: 90,
+    width: 120,
     display: "flex",
     height: 32,
     borderRadius: 16,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
   },
   cuisineSelected: {
     margin: 5,
-    width: 90,
+    width: 120,
     display: "flex",
     height: 32,
     borderRadius: 16,
