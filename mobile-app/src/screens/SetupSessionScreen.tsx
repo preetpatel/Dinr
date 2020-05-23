@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import Geolocation from "@react-native-community/geolocation";
 
 interface Cuisine {
   name: string,
@@ -15,10 +16,20 @@ interface CuisineGridProps {
 }
 
 export const SetupSessionScreen: React.FC = () => {
-  const [distance, changeDistance] = React.useState(1);
   const [priceLevel, changePrice] = React.useState(1);
   const navigation = useNavigation();
-  
+  const [cuisineString, setCuisineString] = React.useState("initial");
+  const [lat, setLat] = React.useState("");
+  const [lon, setLon] = React.useState("");
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition((position) => {
+      setLat(JSON.stringify(position.coords.latitude));
+      setLon(JSON.stringify(position.coords.longitude));
+    })
+  });
+
+
   // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
     {
@@ -82,7 +93,19 @@ export const SetupSessionScreen: React.FC = () => {
     navigation.navigate("HomeScreen");
   };
 
-  const onContinuePress = () => {
+  const onContinuePress = async () => {
+
+    const data = {
+      lat: lat,
+      lon: lon,
+      cuisines: createCuisinesString(),
+      priceRange: priceLevel
+    }
+
+    console.log(data);
+
+    // const code = await axios.post("http://localhost:3000/interaction", data);
+
     navigation.navigate("WaitingScreen");
   }
 
@@ -103,6 +126,16 @@ export const SetupSessionScreen: React.FC = () => {
     });
   }
 
+  const createCuisinesString = () => {
+    let cuisines: string = "";
+    cuisineState.forEach((c) => {
+      if(c.selected){
+        cuisines = cuisines + " " + c.name;
+      }
+    });
+    return cuisines;
+  }
+
   const enableButton = anyCuisinesSelected();
 
   return (
@@ -117,21 +150,6 @@ export const SetupSessionScreen: React.FC = () => {
         </View>
         <Image source={require("../images/logo-with-text.png")} style={styles.logo}/>
         <CuisinesGrid cuisines={cuisineState} onCuisinePress={onCuisinePress}/>
-        <View style={styles.sliderContainer}>
-          <View style={styles.sliderTextContainer}>
-            <Text style={styles.sliderHeaderText}>Distance</Text>
-            <Text style={styles.sliderValueText}>{distance} km</Text>
-          </View>
-          <Slider 
-            step={1} 
-            minimumValue={1}
-            maximumValue={50} 
-            onValueChange={(value) => {changeDistance(value)}} 
-            value={distance}
-            maximumTrackTintColor="rgba(255, 255, 255, 0.5)"
-            minimumTrackTintColor="#FFFFFF"
-          />
-        </View>
         <View style={styles.sliderContainer}>
           <View style={styles.sliderTextContainer}>
             <Text style={styles.sliderHeaderText}>Price</Text>
