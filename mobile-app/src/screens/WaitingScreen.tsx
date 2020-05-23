@@ -23,10 +23,6 @@ export const WaitingScreen: React.FC = () => {
     }, 1000)
   })
 
-  const backPress = () => {
-    // TODO: Add change screen functionality here
-  }
-
   const beginMatchingPress = () => {
     // TODO: Add change screen functionality here
     navigation.navigate("ReadyScreen");
@@ -37,11 +33,7 @@ export const WaitingScreen: React.FC = () => {
     <View style={styles.mainContainer}>
         <View style={{ flex: 1.2, justifyContent: "space-between"}}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={backPress}>
-                <Image style={styles.backButton} source={require("../images/ic_arrow_back_24px.png")}></Image>
-            </TouchableOpacity>
             { isHost ? <Text style={styles.headerText}>Hosting Session</Text> : <Text style={styles.headerText}>Joined Session</Text> }
-            <View style={{ width: 30 }}/>
           </View>
 
           <View>
@@ -81,7 +73,7 @@ const styles = StyleSheet.create({
   header: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
   },
