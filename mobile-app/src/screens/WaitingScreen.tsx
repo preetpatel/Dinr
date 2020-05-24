@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
 import {getFriendsJoinedCount, getInteractionStatus, startInteraction} from "../api/api";
@@ -17,24 +17,36 @@ export const WaitingScreen: React.FC = () => {
   const [friendsJoined, setFriendsJoined ] = useState(0);
   // @ts-ignore
   const [ joinCode, changeJoinCode ] = useState(navigation.getParam("code"));
+  const [doNavigate, setDoNavigate] = useState(false);
 
-  const intervalID = setInterval(async () => {
-    const count = await getFriendsJoinedCount(joinCode);
-    await setFriendsJoined(parseInt(count) -1);
+  useEffect(() => {
+    const intervalID = setInterval(async () => {
+      const count = await getFriendsJoinedCount(joinCode);
+      await setFriendsJoined(parseInt(count) -1);
 
-    if (!isHost) {
-      if (await getInteractionStatus(joinCode) === true) {
-        await beginMatchingPress();
+      if (!isHost) {
+        if (await getInteractionStatus(joinCode) === true) {
+          await beginMatchingPress();
+          return;
+        }
       }
+      if (doNavigate) {
+        return;
+      }
+    }, 500);
+    return() => {
+      clearInterval(intervalID);
     }
-  }, 500)
+  })
+
 
   const beginMatchingPress = async () => {
-    await clearInterval(intervalID)
+    setDoNavigate(true);
     if(isHost) {
       await startInteraction(joinCode);
     }
     navigation.navigate("ReadyScreen", {code: joinCode});
+    return;
   }
   return (
     <View style={styles.mainContainer}>
