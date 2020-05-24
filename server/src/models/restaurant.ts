@@ -14,4 +14,5 @@ export class Restaurant {
     priceRange: number;
     latitude: number;
     longitude: number;
+    vote: number;
   }

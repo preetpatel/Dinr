@@ -27,6 +27,9 @@ export class RestaurantsService {
     // From starstrike64@gmail.com
     //   protected headersRequest = {
     //     'user-key': '98334e87fff8e40beb83e1609e380766'
+        // From starstrike64@gmail.com
+    // protected headersRequest = {
+    //     'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
     // };
 
     //New keys
@@ -38,15 +41,27 @@ export class RestaurantsService {
     // };
     // protected headersRequest = {
     //   'user-key': '2ae92573cefa5778388431b77ad60c86'
-    // };    
+    // };
+
+
+    //New keys
+    // protected headersRequest = {
+    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
+    // };
     protected headersRequest = {
-      'user-key': '93987cb07ac2d02e65df4035980f54b6'
+      'user-key': 'd4de29685bcde645296951ce55f9087e'
+
     };
 
 
 
 
-    
 
 
 

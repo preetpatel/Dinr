@@ -1,6 +1,7 @@
 import {Controller, Get, Param, Put, Post, Body, NotFoundException} from '@nestjs/common';
 import { AppService } from './app.service';
 import { SetUpDTO } from './models/setUpDTO';
+import {swipeResponseDTO} from "./models/swipeResponseDTO";
 
 @Controller()
 export class AppController {
@@ -54,6 +55,16 @@ export class AppController {
   @Post('/readyToBegin/:id')
   incrementReadyToBeginCount(@Param() params) {
     return this.appService.addClientReadyToSwipe(params.id)
+  }
+
+  @Post('/submitResults')
+  submitResponse(@Body() data: swipeResponseDTO) {
+    return this.appService.addSwipeDataToInteraction(data.id, data.response);
+  }
+
+  @Get('/finalResults/:id')
+  getFinalResults(@Param() params) {
+    return this.appService.getFinalResults(params.id)
   }
 
 }
