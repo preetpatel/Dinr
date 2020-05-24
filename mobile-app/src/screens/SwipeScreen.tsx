@@ -121,6 +121,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: wp('10%'),
+    marginTop: hp('1.5%'),
+    alignItems: "center"
   },
   dinrLogoText: {
     color: "#29732D",
@@ -134,7 +136,6 @@ const styles = StyleSheet.create({
     paddingLeft: wp('2%'),
   },
   timer: {
-    marginTop: hp('1.5%'),
     flexDirection: "row",
   },
   footer: {
@@ -147,8 +148,8 @@ const styles = StyleSheet.create({
     marginTop: hp('2%'),
   },
   buttonImage: {
-    width: wp('17%'),
-    height: hp('9%'),
+    width: 60,
+    height: 60,
   },
   buttonDisabled: {
     tintColor: "grey"
