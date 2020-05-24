@@ -4,6 +4,7 @@ import {useNavigation} from "@navigation/hooks/useNavigation";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {checkReadyToBegin, clientReadyToBegin, getRestaurantData} from "../api/api";
 
+
 export type ReadyScreenNavigationParams = {
   readonly code: string;
 };

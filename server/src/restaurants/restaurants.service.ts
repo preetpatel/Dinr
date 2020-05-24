@@ -24,6 +24,9 @@ export class RestaurantsService {
     // protected headersRequest = {
     //     'user-key': 'baa2779d5950311549175b0e72973046'
     // };
+    // From starstrike64@gmail.com
+    //   protected headersRequest = {
+    //     'user-key': '98334e87fff8e40beb83e1609e380766'
         // From starstrike64@gmail.com
     // protected headersRequest = {
     //     'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
