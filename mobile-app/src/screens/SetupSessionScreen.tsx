@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 import {useNavigation} from "@navigation/hooks/useNavigation";
@@ -21,6 +21,7 @@ export const SetupSessionScreen: React.FC = () => {
   const navigation = useNavigation();
   const [lat, setLat] = React.useState(0);
   const [lon, setLon] = React.useState(0);
+  const [loadingData, setLoadingData] = useState(false);
 
   // TODO: Remove dummy data and grab for Zomato API
   const cuisines: Cuisine[] = [
@@ -83,7 +84,7 @@ export const SetupSessionScreen: React.FC = () => {
   };
 
   const onContinuePress = async () => {
-
+    setLoadingData(true);
    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
    navigation.navigate("WaitingScreen", {
      isHost: true,
@@ -154,14 +155,14 @@ export const SetupSessionScreen: React.FC = () => {
         </View>
       </View>
       <TouchableOpacity
-        disabled={!enableButton}
+        disabled={!enableButton && !loadingData}
         style={enableButton ? styles.buttonEnabled : styles.buttonDisabled}
         onPress={onContinuePress}
       >
         <Text
           style={enableButton ? styles.enabledButtonText :  styles.disabledButtonText}
         >
-          Invite Friends
+          {loadingData? "Just a sec" : "Invite Friends" }
         </Text>
       </TouchableOpacity>
     </View>

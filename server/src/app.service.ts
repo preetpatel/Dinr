@@ -46,6 +46,7 @@ export class AppService {
     // Create new interaction
     let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceLevel, lat, lon);
     this.interactions.set(interaction.id, interaction);
+    await this.getRestaurantData(interaction.id)
     return interaction;
   }
 
