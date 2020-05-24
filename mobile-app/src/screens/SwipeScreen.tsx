@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 // @ts-ignore
 import Swiper from "react-native-deck-swiper";
 import {Card} from "@components/Card";
@@ -115,13 +117,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: "#EEEEEE",
-    paddingTop: 40,
+    paddingTop: hp('4%'),
   },
   header: {
-    paddingTop: 5,
+    paddingTop: hp('0.5%'),
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 40,
+    paddingHorizontal: wp('10%'),
+    marginTop: hp('1.5%'),
+    alignItems: "center"
   },
   dinrLogoText: {
     color: "#29732D",
@@ -132,19 +136,19 @@ const styles = StyleSheet.create({
     color: "#29732D",
     fontFamily: "SFProDisplay-Bold",
     fontSize: 24,
-    paddingLeft: 8,
+    paddingLeft: wp('2%'),
   },
   timer: {
-    marginTop:10,
     flexDirection: "row",
   },
   footer: {
-    padding: 60,
+    padding: wp('4%'),
+    paddingHorizontal: wp('6%'),
     justifyContent: "space-between",
     flexDirection: "row",
   },
   pushImage: {
-    marginTop: 15,
+    marginTop: hp('2%'),
   },
   buttonImage: {
     width: 60,
@@ -169,8 +173,8 @@ const overlayStyles = {
         flexDirection: 'column',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
-        marginTop: 30,
-        marginLeft: -30
+        marginTop: hp('4%'),
+        marginLeft: hp('-4%')
       }
     }
   },
@@ -187,8 +191,8 @@ const overlayStyles = {
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        marginTop: 30,
-        marginLeft: 30
+        marginTop: hp('4%'),
+        marginLeft: hp('4%')
       }
     }
   },
