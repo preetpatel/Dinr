@@ -59,14 +59,6 @@ export class RestaurantsService {
 
     };
 
-
-
-
-
-
-
-
-
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
         let restaurantsForLocation: Restaurant[] = [];
@@ -85,7 +77,6 @@ export class RestaurantsService {
             return restaurantsForLocation;
 
         } catch (error) {
-            //Need to handle if get null back...
             return null;
         }
     }

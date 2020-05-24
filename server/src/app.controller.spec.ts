@@ -30,7 +30,7 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return an empty list', async () => {
+    it('should return an array of 9 restaurants', async () => {
       let params: any = {
         lat: -36.9201,
         lon: 174.7574,
