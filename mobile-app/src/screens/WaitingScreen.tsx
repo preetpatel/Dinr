@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "#FFFFFF",
-    height: hp('8%'),
+    height: hp('7%'),
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch"
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    height: hp('8%'),
+    height: hp('7%'),
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch"
