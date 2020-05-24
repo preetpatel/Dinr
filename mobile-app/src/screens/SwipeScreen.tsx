@@ -138,10 +138,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   footer: {
-    padding: wp('4%'),
-    paddingHorizontal: wp('6%'),
+    padding: wp('5%'),
+    paddingHorizontal: wp('12%'),
     justifyContent: "space-between",
-    flexDirection: "row",
+    flexDirection: "row"
   },
   pushImage: {
     marginTop: hp('2%'),
