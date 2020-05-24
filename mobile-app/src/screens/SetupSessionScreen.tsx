@@ -1,20 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import Slider from '@react-native-community/slider';
 import {useNavigation} from "@navigation/hooks/useNavigation";
 import { setupInteraction } from "../api/api";
 import Geolocation from "@react-native-community/geolocation";
-
-interface Cuisine {
-  name: string,
-  selected: boolean,
-  id: number,
-}
-
-interface CuisineGridProps {
-  cuisines: Cuisine[],
-  onCuisinePress: (cuisine: Cuisine) => void,
-}
+import Cuisine, { cuisines } from "@config/Cuisines";
+import CuisinesGrid from "@components/CuisinesGrid";
 
 export const SetupSessionScreen: React.FC = () => {
   const [priceLevel, changePrice] = React.useState(1);
@@ -23,47 +14,7 @@ export const SetupSessionScreen: React.FC = () => {
   const [lon, setLon] = React.useState(0);
   const [loadingData, setLoadingData] = useState(false);
 
-  // TODO: Remove dummy data and grab for Zomato API
-  const cuisines: Cuisine[] = [
-    {
-      name: "European",
-      selected: false,
-      id: 1,
-    },
-    {
-      name: "Fast Food",
-      selected: false,
-      id: 2,
-    },
-    {
-      name: "Chinese",
-      selected: false,
-      id: 4,
-    },
-    {
-      name: "Cafe Food",
-      selected: false,
-      id: 5,
-    },
-    {
-      name: "Coffee and Tea",
-      selected: false,
-      id: 11,
-    },
-    {
-      name: "Pizza",
-      selected: false,
-      id: 12,
-    },
-    {
-      name: "Asian",
-      selected: false,
-      id: 13,
-    },
-  ];
-
   const [cuisineState, changeCuisineState] = React.useState<Cuisine[]>(cuisines);
-
 
   useEffect(() => {
     Geolocation.getCurrentPosition(async (position) => {
@@ -169,50 +120,6 @@ export const SetupSessionScreen: React.FC = () => {
   );
 };
 
-const CuisinesGrid = (props: CuisineGridProps) => {
-  let numCols = Math.ceil(props.cuisines.length / 4);
-
-  return (
-    <View style={{ marginBottom: 30, marginHorizontal: -40 }}>
-      <ScrollView
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-      >
-        <FlatList
-          keyExtractor={(item, index) => item.id.toString()}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
-          data={props.cuisines}
-          numColumns={numCols}
-          renderItem={({item, index}) => {
-            let marginRight = 7.5;
-            let marginLeft = 7.5;
-            if (index === numCols || index === 3 * numCols) {
-              marginLeft = 30;
-            } else if (index === 0 || index === 2 * numCols) {
-              marginLeft = 10;
-            }
-            if (index === numCols - 1 || index === 2 * numCols - 1 || index === 3 * numCols - 1 || index === 4 * numCols - 1) {
-              marginRight = 20;
-            }
-
-            return (
-              <TouchableOpacity
-                key={item.id}
-                style={[item.selected ? styles.cuisineSelected : styles.cuisineUnselected, {marginLeft: marginLeft, marginRight: marginRight}]}
-                onPress={() => props.onCuisinePress(item)}
-              >
-                <Text style={item.selected ? styles.selectedCuisineText : styles.sliderKeyText}>{item.name}</Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </ScrollView>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -272,37 +179,6 @@ const styles = StyleSheet.create({
     fontFamily: "SFProDisplay-Bold",
     color: "#FFFFFF",
     fontSize: 12,
-  },
-  selectedCuisineText: {
-    fontFamily: "SFProDisplay-Bold",
-    color: "#006607",
-    fontSize: 12,
-  },
-  cuisineUnselected: {
-    margin: 5,
-    width: 120,
-    display: "flex",
-    height: 32,
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-    backgroundColor: "#006607",
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 5,
-  },
-  cuisineSelected: {
-    margin: 5,
-    width: 120,
-    display: "flex",
-    height: 32,
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-    backgroundColor: "#FFFFFF",
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 5,
   },
   buttonDisabled: {
     borderRadius: 15,
