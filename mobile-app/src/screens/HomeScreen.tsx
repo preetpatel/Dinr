@@ -1,15 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {getInteractionValid, joinSession} from "../api/api";
 
 export const HomeScreen: React.FC = () => {
   const [code, changeCode] = React.useState("");
   const [invalidCode, changeCodeInvalid] = React.useState(false);
   const navigation = useNavigation();
 
-  const joinButtonPress = () => {
-    // TODO: Change this functionality later to validate session code
-    if (code !== "") {
+  const joinButtonPress = async () => {
+    if (await getInteractionValid(code)) {
+      await joinSession(code);
+      navigation.navigate("WaitingScreen", {isHost: false, code: code})
+    } else {
       changeCodeInvalid(true);
     }
   }

@@ -60,7 +60,7 @@ export class AppService {
 
   getInteraction(id: string) {
     if (!this.interactions.has(id)) {
-      return ['Error: Session Code not found'];
+      return;
     }
     return this.interactions.get(id);
   }

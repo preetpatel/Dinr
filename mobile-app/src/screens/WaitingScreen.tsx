@@ -18,8 +18,8 @@ export const WaitingScreen: React.FC = () => {
 
   const intervalID = setInterval(async () => {
     const count = await getFriendsJoinedCount(joinCode);
-    await setFriendsJoined(count -1);
-  }, 1000)
+    await setFriendsJoined(parseInt(count) -1);
+  }, 500)
 
   useEffect(() => {
     let intID = setInterval(async () => {
@@ -41,7 +41,6 @@ export const WaitingScreen: React.FC = () => {
     }
     navigation.navigate("ReadyScreen", {code: joinCode});
   }
-
   return (
     <View style={styles.mainContainer}>
         <View style={{ flex: 1.2, justifyContent: "space-between"}}>
@@ -51,7 +50,7 @@ export const WaitingScreen: React.FC = () => {
 
           <View>
             <Text style={styles.codeText}>{friendsJoined}</Text>
-            <Text style={styles.bodyText}>friends have joined</Text>
+            <Text style={styles.bodyText}>{"friend" + (friendsJoined === 1 ? " has" : "s have") + " joined"}</Text>
           </View>
           <View>
             <Text style={styles.codeText}>{joinCode}</Text>

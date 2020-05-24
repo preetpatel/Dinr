@@ -18,6 +18,26 @@ export const setupInteraction = async (lat: number, lon: number, cuisines: strin
     }
 }
 
+export const getInteractionValid = async (id: string) => {
+    const url = `${BACKEND}/interaction/` + id;
+    try {
+        await axios.get(url);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+export const joinSession = async (id: string) => {
+    const url = `${BACKEND}/addFriend/` + id;
+    try {
+        return await axios.get(url);
+    } catch (e) {
+        console.log("An error occurred adding friend to list");
+        return false;
+    }
+}
+
 export const getFriendsJoinedCount = async (id: string) => {
     const url = `${BACKEND}/getFriends/` + id;
     try {

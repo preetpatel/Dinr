@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Put, Post, Body } from '@nestjs/common';
+import {Controller, Get, Param, Put, Post, Body, NotFoundException} from '@nestjs/common';
 import { AppService } from './app.service';
 import { SetUpDTO } from './models/setUpDTO';
 
@@ -14,7 +14,11 @@ export class AppController {
 
   @Get('/interaction/:id')
   getInteraction(@Param() params) {
-    return this.appService.getInteraction(params.id)
+    const interaction = this.appService.getInteraction(params.id);
+    if (interaction === undefined) {
+      throw new NotFoundException("Invalid Code! Please try again")
+    }
+    return interaction;
   }
 
   @Get('/restaurantData/:id')
