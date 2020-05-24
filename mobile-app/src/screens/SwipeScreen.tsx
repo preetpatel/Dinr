@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('6%'),
     justifyContent: "space-between",
     flexDirection: "row",
+    marginBottom: wp('5%'),
   },
   pushImage: {
     marginTop: hp('2%'),
