@@ -24,6 +24,10 @@ export class RestaurantsService {
     // protected headersRequest = {
     //     'user-key': 'baa2779d5950311549175b0e72973046'
     // };
+    // From starstrike64@gmail.com
+    //   protected headersRequest = {
+    //     'user-key': '98334e87fff8e40beb83e1609e380766'
+    // };
 
     //New keys
     // protected headersRequest = {
@@ -46,10 +50,7 @@ export class RestaurantsService {
 
 
 
-    // From starstrike64@gmail.com
-    protected headersRequest = {
-        'user-key': '98334e87fff8e40beb83e1609e380766'
-    };
+
 
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
