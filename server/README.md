@@ -8,6 +8,8 @@ npm install
 
 ## Running the app
 
+#### Please ensure you have set up the Zomato API key. More details about it can be found [here](https://github.com/PreetPatel/Dinr/wiki/Development-Environment#api-keys)
+
 ### development
 ```
 npm run start
