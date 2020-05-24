@@ -5,9 +5,9 @@
 ### Because restaurants can't swipe left!
 
 <div>
-<img src="https://i.imgur.com/qx50agV.png" width="300" />
-<img src="https://i.imgur.com/vfm7KuW.png" width="300" />
-<img src="https://i.imgur.com/tQUanEU.png" width="300" />
+<img src="https://i.imgur.com/qx50agV.png" width="250" />
+<img src="https://i.imgur.com/vfm7KuW.png" width="250" />
+<img src="https://i.imgur.com/tQUanEU.png" width="250" />
 
 </div>
 
