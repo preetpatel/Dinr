@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
 import { RestaurantTopPick } from "../components/RestaurantTopPick"
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 
 export const ResultsScreen: React.FC = () => {
@@ -39,11 +41,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: "#EEEEEE",
-    padding: 40,
+    padding: wp('10%'),
   },
   logoImage: {
-    marginTop: 50,
-    marginBottom: 40,
+    marginTop: hp('5%'),
+    marginBottom: hp('5%'),
     height: 100,
     alignSelf: "center",
     resizeMode: "contain"
@@ -67,24 +69,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
+    marginTop: hp('5%'),
   },
   restaurantPicksContainer: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    marginTop: 45,
+    marginTop: hp('5%'),
   },
   doneButton: {
     borderRadius: 15,
     borderColor: "#006607",
     borderWidth: 2,
     backgroundColor: "#006607",
-    height: 45,
+    height: hp('6%'),
+    maxHeight: 45,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch",
-    marginTop: 70
+    marginTop: hp('10%')
   },
   doneButtonText: {
     fontFamily: "SFProDisplay-Medium",
