@@ -15,4 +15,15 @@ describe('SetupService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('should generate session code of length 6', () => {
+    expect(service.generateSessionCode()).toHaveLength(6);
+  });
+
+  it('should generate a unqiue session code each time', () => {
+    let code1: string = service.generateSessionCode();
+    let code2: string = service.generateSessionCode();
+    expect(code1 != code2);
+  });
+
 });
