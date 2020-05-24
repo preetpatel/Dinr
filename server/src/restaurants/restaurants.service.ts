@@ -38,7 +38,7 @@ export class RestaurantsService {
     // };
     // protected headersRequest = {
     //   'user-key': '2ae92573cefa5778388431b77ad60c86'
-    // };    
+    // };
 
 
     //New keys
@@ -50,19 +50,19 @@ export class RestaurantsService {
     // };
     // protected headersRequest = {
     //   'user-key': '2ae92573cefa5778388431b77ad60c86'
-    // };    
+    // };
     protected headersRequest = {
-      'user-key': '93987cb07ac2d02e65df4035980f54b6'
-   
+      'user-key': 'd4de29685bcde645296951ce55f9087e'
+
     };
 
 
 
 
-    
 
 
-    
+
+
 
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 

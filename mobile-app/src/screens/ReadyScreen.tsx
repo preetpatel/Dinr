@@ -42,7 +42,7 @@ export const ReadyScreen: React.FC = () => {
   };
 
   const countdownDone = () => {
-    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData});
+    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData, id: id});
   };
 
   useEffect(() => {

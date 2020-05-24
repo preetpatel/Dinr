@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
 import { RestaurantTopPick } from "../components/RestaurantTopPick"
 import {useNavigation} from "@navigation/hooks/useNavigation";
 
+export type ResultsScreenNavigationParams = {
+  readonly restaurants: unknown;
+};
 
 export const ResultsScreen: React.FC = () => {
   const navigation = useNavigation();
-  const [restaurants, setRestaurants ] = useState("");
+  // @ts-ignore
+  const [data, setData] = useState(navigation.getParam("restaurants"));
 
   const donePress = () => {
-    // TODO: Add change screen functionality here
     navigation.navigate("HomeScreen");
   }
 
@@ -20,9 +23,11 @@ export const ResultsScreen: React.FC = () => {
         <View>
           <Text style={styles.headerText}>Here are your top picks:</Text>
           <View style={styles.restaurantPicksContainer} >
-              <RestaurantTopPick/>
-              <RestaurantTopPick/>
-              <RestaurantTopPick/>
+            {data.map((data: { address: string; distance: number; image: string; name: string; priceRange: number; id: number; }) => {
+              return(
+                  <RestaurantTopPick key={data.id} address={data.address} distance={data.distance} image={data.image} name={data.name} priceRange={data.priceRange}/>
+              )
+            })}
           </View>
         </View>
       </View>
