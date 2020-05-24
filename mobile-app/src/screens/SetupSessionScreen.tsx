@@ -15,6 +15,7 @@ export const SetupSessionScreen: React.FC = () => {
   const [loadingData, setLoadingData] = useState(false);
 
   const [cuisineState, changeCuisineState] = React.useState<Cuisine[]>(cuisines);
+  const [selectedCuisine, changeSelectedCuisine] = React.useState<Cuisine>();
 
   useEffect(() => {
     Geolocation.getCurrentPosition(async (position) => {
@@ -55,14 +56,27 @@ export const SetupSessionScreen: React.FC = () => {
   }
 
   const onCuisinePress = (cuisine: Cuisine) => {
-    const newState = cuisineState.map((c) => {
-      if (c.id === cuisine.id) {
-        return {...c, selected: !c.selected};
-      } else {
-        return c;
-      }
-    });
-    changeCuisineState(newState);
+    if (selectedCuisine === undefined) {
+      const newState = cuisineState.map((c) => {
+        if (c.id === cuisine.id) {
+          return {...c, selected: !c.selected};
+        } else {
+          return c;
+        }
+      });
+      changeCuisineState(newState);
+      changeSelectedCuisine(cuisine);
+    } else if (selectedCuisine.id === cuisine.id) {
+      const newState = cuisineState.map((c) => {
+        if (c.id === cuisine.id) {
+          return {...c, selected: false};
+        } else {
+          return c;
+        }
+      });
+      changeCuisineState(newState);
+      changeSelectedCuisine(undefined);
+    }
   };
 
   const anyCuisinesSelected = () => {
@@ -84,7 +98,7 @@ export const SetupSessionScreen: React.FC = () => {
           <View style={{ width: 30 }}/>
         </View>
         <Image source={require("../images/logo-with-text.png")} style={styles.logo}/>
-        <CuisinesGrid cuisines={cuisineState} onCuisinePress={onCuisinePress}/>
+        <CuisinesGrid cuisines={cuisineState} onCuisinePress={onCuisinePress} selectedCuisine={selectedCuisine}/>
         <View style={styles.sliderContainer}>
           <View style={styles.sliderTextContainer}>
             <Text style={styles.sliderHeaderText}>Price</Text>
