@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, Image, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 export const TimesUpScreen: React.FC = () => {
 
@@ -29,12 +31,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: "#006607",
-    padding: 40,
+    padding: wp('10%'),
   },
   timesUpImage: {
     alignSelf: "center",
     resizeMode: "center",
-    width: 250,
+    width: '80%',
   },
   timesUpText: {
     fontFamily: "SFProDisplay-Bold",
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
+    marginTop: hp('3%'),
 
   },
   bodyText: {
@@ -50,6 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
+    marginTop: hp('3%'),
   }
 });
