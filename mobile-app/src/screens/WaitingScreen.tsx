@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   beginButton: {
-    marginTop: hp('3%'),
+    marginTop: hp('2%'),
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
