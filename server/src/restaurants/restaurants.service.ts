@@ -2,6 +2,7 @@ import { Injectable  } from '@nestjs/common';
 import axios from 'axios';
 import { Rating } from '../models/rating';
 import { Restaurant } from '../models/restaurant';
+import {ZOMATO_API_KEY} from "../../config";
 
 @Injectable()
 export class RestaurantsService {
@@ -10,53 +11,8 @@ export class RestaurantsService {
 
     protected baseAddress: string = "https://developers.zomato.com/api/v2.1";
 
-    //Lola's
-    // protected headersRequest = {
-    //     'user-key': '98334e87fff8e40beb83e1609e380766'
-    // };
-
-    //From rupert.moran.adcock@gmail.com login
-    // protected headersRequest = {
-    //     'user-key': '404284847268fbc791a13a00b90a77cb'
-    // };
-
-    //From rmor188@aucklanduni.ac.nz login
-    // protected headersRequest = {
-    //     'user-key': 'baa2779d5950311549175b0e72973046'
-    // };
-    // From starstrike64@gmail.com
-    //   protected headersRequest = {
-    //     'user-key': '98334e87fff8e40beb83e1609e380766'
-        // From starstrike64@gmail.com
-    // protected headersRequest = {
-    //     'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
-    // };
-
-    //New keys
-    // protected headersRequest = {
-    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
-    // };
-    // protected headersRequest = {
-    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
-    // };
-    // protected headersRequest = {
-    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
-    // };
-
-
-    //New keys
-    // protected headersRequest = {
-    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
-    // };
-    // protected headersRequest = {
-    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
-    // };
-    // protected headersRequest = {
-    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
-    // };
     protected headersRequest = {
-      'user-key': 'd4de29685bcde645296951ce55f9087e'
-
+      'user-key': ZOMATO_API_KEY
     };
 
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
