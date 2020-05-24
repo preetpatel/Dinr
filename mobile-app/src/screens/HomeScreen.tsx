@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {getInteractionValid, joinSession} from "../api/api";
 
 export const HomeScreen: React.FC = () => {
@@ -60,19 +61,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: "#006607",
-    padding: 40,
+    padding: wp('10%'),
   },
   tagline: {
     fontFamily: "SFProDisplay-Bold",
     fontSize: 25,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
+    marginTop: hp('3%'),
   },
   saladPlates: {
     width: 500,
     resizeMode: "contain",
-    marginTop: 40,
+    marginTop: hp('5%'),
     alignSelf: "center",
     shadowColor: "#222222",
     shadowOffset: { width: 10, height: 10},
@@ -84,14 +85,14 @@ const styles = StyleSheet.create({
     borderColor: "#979797",
     borderWidth: 1,
     backgroundColor: "#FFFFFF",
-    height: 45,
+    height: hp('6%'),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginBottom: 15,
+    marginBottom: hp('2%'),
   },
   forkKnife: {
-    marginHorizontal: 20,
+    marginHorizontal: wp('6%'),
     height: 20,
     width: 18,
     resizeMode: "contain"
@@ -103,14 +104,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
     textAlign: "center",
-    marginRight: 58,
+    marginRight: wp('15%'),
   },
   buttonDisabled: {
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    height: 45,
+    height: hp('6%'),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "#FFFFFF",
-    height: 45,
+    height: hp('6%'),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     color: "#FF8900",
-    marginTop: 15
+    marginTop: hp('3%')
   },
   invalidCodeBorder: {
     borderColor: "#FF8900",
