@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
-import {getRestaurantData} from "../api/api";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
+import {checkReadyToBegin, clientReadyToBegin, getRestaurantData} from "../api/api";
 
 export type ReadyScreenNavigationParams = {
   readonly code: string;
@@ -28,6 +27,15 @@ export const ReadyScreen: React.FC = () => {
     // Will change to wait on others
     const data = await getRestaurantData(id)
     setRestaurantData(data);
+    await clientReadyToBegin(id); // set status as ready
+    let allClientsSynced = false;
+
+    while(!allClientsSynced) {
+      const response = await checkReadyToBegin(id);
+      if(response === true) {
+        allClientsSynced = true;
+      }
+    }
     setTimeout(() => {
       setReady(true);
       setInfoText(false);
@@ -35,11 +43,7 @@ export const ReadyScreen: React.FC = () => {
   };
 
   const countdownDone = () => {
-    navigation.navigate("SwipeScreen", {timer: 120, restaurantData: restaurantData});
-  };
-
-  const checkSessionReady = () => {
-    // TODO: Add logic to check if swiping session ready
+    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData});
   };
 
   useEffect(() => {
