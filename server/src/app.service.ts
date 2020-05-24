@@ -82,4 +82,12 @@ export class AppService {
     return this.interactions.get(id).matchingStarted;
   }
 
+  getReadyToSwipeStatus(id: string) {
+    return this.interactions.get(id).clientsReadyToSwipe === this.interactions.get(id).peopleJoined;
+  }
+
+  addClientReadyToSwipe(id: string) {
+    return this.interactions.get(id).clientsReadyToSwipe += 1;
+  }
+
 }
