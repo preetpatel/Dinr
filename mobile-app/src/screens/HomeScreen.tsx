@@ -30,16 +30,16 @@ export const HomeScreen: React.FC = () => {
             <TextInput
               style={styles.textInput} value={code}
               placeholder={"Session Invite Code"}
-              onChangeText={text => changeCode(text.trim())}
+              onChangeText={text => changeCode(text.trim().toUpperCase().substring(0,6))}
               placeholderTextColor={"#979797"}
             />
           </View>
           <TouchableOpacity
-            style={code === "" ? styles.buttonDisabled : styles.buttonEnabled}
+            style={code.length !== 6 ? styles.buttonDisabled : styles.buttonEnabled}
             onPress={joinButtonPress}
-            disabled={code === ""}
+            disabled={code.length !== 6}
           >
-            <Text style={code === "" ? styles.disabledButtonText : styles.enabledButtonText}>Join</Text>
+            <Text style={code.length !== 6 ? styles.disabledButtonText : styles.enabledButtonText}>Join</Text>
           </TouchableOpacity>
           { invalidCode && code ? <Text style={styles.invalidCodeText}>Invalid code! Please try again.</Text> : null }
         </View>
