@@ -15,7 +15,6 @@ export class SetupService {
       interaction.peopleJoined = 1;
       interaction.matchingStarted = false;
       interaction.clientsReadyToSwipe = 0;
-      console.log(interaction);
       return interaction;
   }
 
