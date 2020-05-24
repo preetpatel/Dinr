@@ -4,6 +4,7 @@ import {useNavigation} from "@navigation/hooks/useNavigation";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {checkReadyToBegin, clientReadyToBegin, getRestaurantData} from "../api/api";
 
+
 export type ReadyScreenNavigationParams = {
   readonly code: string;
 };
@@ -43,7 +44,7 @@ export const ReadyScreen: React.FC = () => {
   };
 
   const countdownDone = () => {
-    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData});
+    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData, id: id});
   };
 
   useEffect(() => {

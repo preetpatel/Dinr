@@ -6,19 +6,23 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 // @ts-ignore
 import Swiper from "react-native-deck-swiper";
 import {Card} from "@components/Card";
+import {submitResults} from "../api/api";
 
 export type SwipeScreenNavigationParams = {
   readonly timer: number;
   readonly restaurantData: unknown;
+  readonly id: string;
 };
 
 export const SwipeScreen: React.FC = () => {
   const navigation = useNavigation();
   const [time, setTime] = useState();
-  const [restaurantData, setRestaurantData] = useState();
+  // @ts-ignore
+  const [restaurantData, setRestaurantData] = useState(navigation.getParam("restaurantData"));
   const [hasUsedSuperLike, setHasUsedSuperLike] = useState(false);
   const swipeComponent = useRef<Swiper>();
   const DEFAULT_IMAGE: string = "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg"
+  let [votes] = useState(new Array<number>());
   /**
    * Timer hook to count down and navigate
    */
@@ -27,7 +31,7 @@ export const SwipeScreen: React.FC = () => {
       setTime((time: number) => {
         const newTime = time - 1;
         if (newTime == 0) {
-          navigation.navigate("TimesUpScreen") // TODO Called when timer is over.. navigates to next screen
+          handleOnComplete();
           return;
         } else {
           return newTime;
@@ -43,20 +47,19 @@ export const SwipeScreen: React.FC = () => {
     // @ts-ignore
     const time = navigation.getParam("timer");
     // @ts-ignore
-    const restaurantData = navigation.getParam("restaurantData");
-    // @ts-ignore
     setTime(time);
-    setRestaurantData(restaurantData)
   }, [navigation]);
 
-  const handleOnComplete = () => {
-    console.log("Swiping over. Redirecting back to home screen for now");
-    navigation.navigate("TimesUpScreen");
+  const handleOnComplete = async () => {
+    // @ts-ignore
+    const id = navigation.getParam("id");
+    await submitResults(id, votes)
+    navigation.navigate("TimesUpScreen", {id: id});
   }
 
   const handleSuperLike = (cardIndex: number) => {
     setHasUsedSuperLike(true);
-    console.log(cardIndex + " Super liked! This can only be done once and has now been disabled")
+    votes.push(2);
   }
 
   return (
@@ -78,8 +81,8 @@ export const SwipeScreen: React.FC = () => {
                 <Card name={card.name} imageURI={card.image !== "" ? card.image : DEFAULT_IMAGE} stars={card.rating} price={card.priceRange} distance={card.distance} address={card.address}/>
             )
           }}
-          onSwipedLeft={(cardIndex: number) => {console.log(cardIndex + " swiped Left")}}
-          onSwipedRight={(cardIndex: number) => {console.log(cardIndex + " swiped Right")}}
+          onSwipedLeft={(cardIndex: number) => {votes.push(0)}}
+          onSwipedRight={(cardIndex: number) => {votes.push(1)}}
           onSwipedTop={(cardIndex: number) => {handleSuperLike(cardIndex)}}
           disableBottomSwipe={true}
             disableTopSwipe={hasUsedSuperLike} // Cannot superLike more than one restaurant

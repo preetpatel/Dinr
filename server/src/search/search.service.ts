@@ -15,13 +15,13 @@ export class SearchService {
     protected maxRestaurants: number = 9;
     protected lengthOneDegreeLat: number = 111.320;
     protected deltaLat: number = 4*0.009;
-    protected deltaLon: number = 0; 
+    protected deltaLon: number = 0;
     protected coordsSearched = [];
 
     protected restaurantsMap:Map<number, Restaurant> = new Map();
 
-    public async expandingSquaresearch (originLat: number, originLon: number, cuisines: string): Promise<Restaurant[]>  { 
-        
+    public async expandingSquaresearch (originLat: number, originLon: number, cuisines: string): Promise<Restaurant[]>  {
+
         let allRestaurants: Restaurant[] = [];
         let searching: boolean = true;
         let searchEnd: number = 2;
@@ -40,7 +40,7 @@ export class SearchService {
 
                         // Get restaurants and check if this list has been filled
                         if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat + x*this.deltaLat, originLon + y*this.deltaLon), cuisines)){
-                          searching = false;                        
+                          searching = false;
                           break;
                         } else if(this.catchDuplicates(await this.restaurantsService.getRestaurantsForLocation(originLat - x*this.deltaLat, originLon - y*this.deltaLon), cuisines)){
                           searching = false;
@@ -53,8 +53,8 @@ export class SearchService {
                           searching = false;
                           break;
                         }
-                    } 
-                }               
+                    }
+                }
                 if(!searching){
                     break;
                 }
@@ -65,14 +65,15 @@ export class SearchService {
             }
             searchEnd++;
         }
-        
+
         // Convert map to an array to return
         for (let key of this.restaurantsMap.keys()){
           if(allRestaurants.length < this.maxRestaurants){
+              this.restaurantsMap.get(key).vote = 0;
             allRestaurants.push(<Restaurant>this.restaurantsMap.get(key));
           }
         }
-        return allRestaurants; 
+        return allRestaurants;
     }
 
     private catchDuplicates(restaurants: Restaurant[], cuisines: string): boolean {
@@ -86,7 +87,7 @@ export class SearchService {
                         if(this.restaurantsMap.size === this.maxRestaurants){
                           listFull = true;
                         }
-                    } 
+                    }
                 }
             });
         } else {

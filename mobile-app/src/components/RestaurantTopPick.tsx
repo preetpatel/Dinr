@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React  from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity, Linking } from "react-native";
 
-export const RestaurantTopPick: React.FC = () => {
-	const restaurantData = { name: "Paradise", price: 3, disatance: 1.2, image: "../images/salad-plates.png", address: "591 Sandringham Road, Sandringham, Auckland 1025"}
-	const [restaurant, setRestaurant] = useState(restaurantData);
+export type RestaurantCardParams = {
+	readonly name: string;
+	readonly image: string;
+	readonly priceRange: number;
+	readonly distance: number;
+	readonly address: string;
+};
+
+export const RestaurantTopPick: React.FC<RestaurantCardParams> = (props) => {
+	// @ts-ignore
+	const restaurant = props;
+	const DEFAULT_IMAGE: string = "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg"
+
 
 	const  seeLocation = (name: string, address: string) => {
 		const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
@@ -14,23 +24,23 @@ export const RestaurantTopPick: React.FC = () => {
 				} else {
 					console.log("Don't know how to open URI: " + url);
 				}
-			});    
+			});
 	}
 
 	let priceRows = [];
-	for (let i=0; i < restaurant.price; i++) {
-			priceRows.push(<Image key={i} style={styles.priceIcon} source={require("../images/ic_monetization_on_24px.png")}></Image>)
+	for (let i=0; i < restaurant.priceRange; i++) {
+			priceRows.push(<Image key={i} style={styles.priceIcon} source={require("../images/ic_monetization_on_24px.png")}/>)
 	}
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.restaurantContainer}>
 				<View style={{ flexDirection: "row" }}>
-					<Image style={styles.restaurantImage} source={require("../images/salad-plates.png")}></Image>
+					<Image style={styles.restaurantImage} source={{uri: restaurant.image === "" ? DEFAULT_IMAGE: restaurant.image}}/>
 					<View style={styles.restaurantInfoContainer}>
 						<Text style={styles.nameText}> {restaurant.name} </Text>
 						<View style={styles.locationInfoContainer}>
-							<Image style={styles.locationIcon} source={require("../images/location-icon.png")}></Image>
-							<Text style={styles.distanceText}> {restaurant.disatance} km away</Text>
+							<Image style={styles.locationIcon} source={require("../images/location-icon.png")}/>
+							<Text style={styles.distanceText}> {restaurant.distance} km away</Text>
 						</View>
 						<View style={{display: "flex", flexDirection: "row", justifyContent: "flex-start"}}>
 						{priceRows}
@@ -38,7 +48,7 @@ export const RestaurantTopPick: React.FC = () => {
 					</View>
 				</View>
 				<TouchableOpacity onPress={() => seeLocation(restaurant.name, restaurant.address)}>
-						<Image style={styles.viewMoreButton} source={require("../images/green-forward-arrow.png")}></Image>
+						<Image style={styles.viewMoreButton} source={require("../images/green-forward-arrow.png")}/>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.lineSeparator}/>
@@ -84,9 +94,9 @@ const styles = StyleSheet.create({
 		lineHeight: 25
 	},
 	locationInfoContainer: {
-		display: "flex", 
-		flexDirection: "row", 
-		justifyContent: "flex-start", 
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "flex-start",
 		marginBottom: 4
 	},
 	locationIcon: {
