@@ -46,6 +46,7 @@ export class AppService {
     // Create new interaction
     let interaction: Interaction = this.setupService.createNewInteraction(cuisines, priceLevel, lat, lon);
     this.interactions.set(interaction.id, interaction);
+    await this.getRestaurantData(interaction.id)
     return interaction;
   }
 
@@ -60,7 +61,7 @@ export class AppService {
 
   getInteraction(id: string) {
     if (!this.interactions.has(id)) {
-      return ['Error: Session Code not found'];
+      return;
     }
     return this.interactions.get(id);
   }

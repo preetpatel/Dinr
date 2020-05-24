@@ -1,15 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {getInteractionValid, joinSession} from "../api/api";
 
 export const HomeScreen: React.FC = () => {
   const [code, changeCode] = React.useState("");
   const [invalidCode, changeCodeInvalid] = React.useState(false);
   const navigation = useNavigation();
 
-  const joinButtonPress = () => {
-    // TODO: Change this functionality later to validate session code
-    if (code !== "") {
+  const joinButtonPress = async () => {
+    if (await getInteractionValid(code)) {
+      await joinSession(code);
+      navigation.navigate("WaitingScreen", {isHost: false, code: code})
+    } else {
       changeCodeInvalid(true);
     }
   }
@@ -30,16 +33,16 @@ export const HomeScreen: React.FC = () => {
             <TextInput
               style={styles.textInput} value={code}
               placeholder={"Session Invite Code"}
-              onChangeText={text => changeCode(text.trim())}
+              onChangeText={text => changeCode(text.trim().toUpperCase().substring(0,6))}
               placeholderTextColor={"#979797"}
             />
           </View>
           <TouchableOpacity
-            style={code === "" ? styles.buttonDisabled : styles.buttonEnabled}
+            style={code.length !== 6 ? styles.buttonDisabled : styles.buttonEnabled}
             onPress={joinButtonPress}
-            disabled={code === ""}
+            disabled={code.length !== 6}
           >
-            <Text style={code === "" ? styles.disabledButtonText : styles.enabledButtonText}>Join</Text>
+            <Text style={code.length !== 6 ? styles.disabledButtonText : styles.enabledButtonText}>Join</Text>
           </TouchableOpacity>
           { invalidCode && code ? <Text style={styles.invalidCodeText}>Invalid code! Please try again.</Text> : null }
         </View>
