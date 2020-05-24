@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TouchableOpacity, Text, FlatList, ScrollView, StyleSheet } from "react-native";
 import Cuisine from "@config/Cuisines";
 
 interface CuisineGridProps {
   cuisines: Cuisine[],
+  selectedCuisine: Cuisine | undefined,
   onCuisinePress: (cuisine: Cuisine) => void,
 }
 
@@ -42,6 +43,7 @@ const CuisinesGrid = (props: CuisineGridProps) => {
                 key={item.id}
                 style={[item.selected ? styles.cuisineSelected : styles.cuisineUnselected, {marginLeft: marginLeft, marginRight: marginRight}]}
                 onPress={() => props.onCuisinePress(item)}
+                disabled={props.selectedCuisine && props.selectedCuisine.id !== item.id}
               >
                 <Text style={item.selected ? styles.selectedCuisineText : styles.unselectedCuisineText}>{item.name}</Text>
               </TouchableOpacity>
