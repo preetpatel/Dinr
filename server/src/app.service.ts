@@ -73,4 +73,12 @@ export class AppService {
     this.interactions.get(id).peopleJoined += 1;
   }
 
+  startMatch(id: string) {
+    this.interactions.get(id).matchingStarted = true;
+  }
+
+  getMatchStatus(id: string) {
+    return this.interactions.get(id).matchingStarted;
+  }
+
 }

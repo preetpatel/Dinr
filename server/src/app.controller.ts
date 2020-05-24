@@ -32,6 +32,16 @@ export class AppController {
     return this.appService.increaseFriendCount(params.id)
   }
 
+  @Post('/interactionStatus/:id')
+  startInteraction(@Param() params) {
+    return this.appService.startMatch(params.id)
+  }
+
+  @Get('/interactionStatus/:id')
+  getInteractionStatus(@Param() params) {
+    return this.appService.getMatchStatus(params.id)
+  }
+
 }
 
 

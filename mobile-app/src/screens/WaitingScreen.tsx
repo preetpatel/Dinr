@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
-import {getFriendsJoinedCount} from "../api/api";
+import {getFriendsJoinedCount, getInteractionStatus, startInteraction} from "../api/api";
 
 export type WaitingScreenNavigationParams = {
   readonly isHost: boolean;
@@ -21,8 +21,24 @@ export const WaitingScreen: React.FC = () => {
     await setFriendsJoined(count -1);
   }, 1000)
 
-  const beginMatchingPress = () => {
+  useEffect(() => {
+    let intID = setInterval(async () => {
+      if (!isHost) {
+        if (await getInteractionStatus(joinCode) === true) {
+          await beginMatchingPress();
+        }
+      }
+    }, 500);
+    return() => {
+      clearInterval(intID);
+    }
+  });
+
+  const beginMatchingPress = async () => {
     clearInterval(intervalID)
+    if(isHost) {
+      await startInteraction(joinCode);
+    }
     navigation.navigate("ReadyScreen", {code: joinCode});
   }
 

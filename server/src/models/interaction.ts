@@ -9,4 +9,5 @@ export class Interaction {
     topThreeRestaurants: Restaurant[];
     lat: number;
     lon: number;
+    matchingStarted: boolean;
 }

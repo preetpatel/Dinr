@@ -13,6 +13,7 @@ export class SetupService {
       interaction.allRestaurants = []
       interaction.topThreeRestaurants = []
       interaction.peopleJoined = 1;
+      interaction.matchingStarted = false;
       console.log(interaction);
       return interaction;
   }

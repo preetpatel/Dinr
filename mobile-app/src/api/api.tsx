@@ -37,3 +37,23 @@ export const getRestaurantData = async (id: string) => {
         console.log("An error occurred getting the restaurant data")
     }
 }
+
+export const getInteractionStatus = async (id: string) => {
+    const url = `${BACKEND}/interactionStatus/` + id;
+    try {
+        const result = await axios.get(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred getting the restaurant data")
+    }
+}
+
+export const startInteraction = async (id: string) => {
+    const url = `${BACKEND}/interactionStatus/` + id;
+    try {
+        const result = await axios.post(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred getting the restaurant data")
+    }
+}
