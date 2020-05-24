@@ -14,6 +14,7 @@ export class SetupService {
       interaction.topThreeRestaurants = []
       interaction.peopleJoined = 1;
       interaction.matchingStarted = false;
+      interaction.clientsReadyToSwipe = 0;
       console.log(interaction);
       return interaction;
   }

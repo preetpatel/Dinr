@@ -82,4 +82,38 @@ export class AppService {
     return this.interactions.get(id).matchingStarted;
   }
 
+  getReadyToSwipeStatus(id: string) {
+    return this.interactions.get(id).clientsReadyToSwipe === this.interactions.get(id).peopleJoined;
+  }
+
+  addClientReadyToSwipe(id: string) {
+    return this.interactions.get(id).clientsReadyToSwipe += 1;
+  }
+
+  addSwipeDataToInteraction(id: string, responses: number[]) {
+    const interaction = this.interactions.get(id);
+    for (let i in responses) {
+      interaction.allRestaurants[i].vote += responses[i];
+    }
+    interaction.peopleJoined -= 1;
+
+    // If everyone has submitted, calculate the final scores
+    if (interaction.peopleJoined === 0) {
+      interaction.allRestaurants.sort((a,b) => (a.vote > b.vote) ? -1 : 1);
+      if (interaction.allRestaurants.length < 4) {
+        interaction.topThreeRestaurants = interaction.allRestaurants;
+        return;
+      }
+      interaction.topThreeRestaurants = new Array<Restaurant>()
+      for (let i = 0; i < 3; i++) {
+        interaction.topThreeRestaurants[i] = interaction.allRestaurants[i];
+      }
+    }
+  }
+
+  getFinalResults(id: string) {
+    const interaction = this.interactions.get(id);
+    return interaction.topThreeRestaurants;
+  }
+
 }

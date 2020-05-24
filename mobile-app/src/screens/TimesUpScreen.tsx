@@ -1,16 +1,33 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, Image, View} from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {getTopThreeResults} from "../api/api";
+
+export type TimesUpScreenNavigationParams = {
+  readonly id: string;
+};
 
 export const TimesUpScreen: React.FC = () => {
 
   const navigation = useNavigation();
+  // @ts-ignore
+  const id = navigation.getParam("id");
 
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate("ResultsScreen");
-    }, 1000)
-  })
+    let intID = setInterval(() => {
+      const checkForResponse = async (id: string) => {
+        const results = await getTopThreeResults(id);
+        if (results.length !== 0) {
+          navigation.navigate("ResultsScreen", {restaurants: results});
+          return;
+        }
+      }
+      checkForResponse(id);
+    }, 1000);
+    return() => {
+      clearInterval(intID);
+    }
+  });
 
   return (
     <View style={styles.mainContainer}>

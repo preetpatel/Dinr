@@ -24,13 +24,45 @@ export class RestaurantsService {
     // protected headersRequest = {
     //     'user-key': 'baa2779d5950311549175b0e72973046'
     // };
+        // From starstrike64@gmail.com
+    // protected headersRequest = {
+    //     'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
+    // };
+
+    //New keys
+    // protected headersRequest = {
+    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
+    // };
 
 
-    
-    // From starstrike64@gmail.com
+    //New keys
+    // protected headersRequest = {
+    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
+    // };
     protected headersRequest = {
-        'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
+      'user-key': 'd4de29685bcde645296951ce55f9087e'
+
     };
+
+
+
+
+
+
+
+
 
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
 
@@ -38,17 +70,17 @@ export class RestaurantsService {
 
         try {
             const response = await axios({
-                method: 'GET', 
-                url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, 
+                method: 'GET',
+                url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`,
                 headers: this.headersRequest
             });
-    
+
             response.data.nearby_restaurants.forEach(location => {
                 restaurantsForLocation.push(this.setRestaurantInfo(location.restaurant));
             });
 
             return restaurantsForLocation;
-            
+
         } catch (error) {
             //Need to handle if get null back...
             return null;
@@ -74,7 +106,7 @@ export class RestaurantsService {
         restaurant.longitude = data.location.longitude;
 
         return restaurant;
-         
+
     }
 
 }
