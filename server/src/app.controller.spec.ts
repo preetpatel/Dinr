@@ -35,10 +35,10 @@ describe('AppController', () => {
         lat: -36.9201,
         lon: 174.7574,
         cuisines: 'Indian, Thai',
-        priceRange: 3 
+        priceRange: 3
       }
 
-      expect((await appController.getRestaurants(params)).length).toEqual(12);
+      expect((await appController.setupInteraction(params)).allRestaurants.length).toEqual(9);
     });
   });
 });
