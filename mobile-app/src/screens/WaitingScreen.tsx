@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
 import {getFriendsJoinedCount, getInteractionStatus, startInteraction} from "../api/api";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 export type WaitingScreenNavigationParams = {
   readonly isHost: boolean;
@@ -80,14 +82,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: "#006607",
-    padding: 40,
+    padding: wp('10%'),
   },
   header: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: hp('3%'),
   },
   headerText: {
     fontFamily: "SFProDisplay-Bold",
@@ -95,11 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#FFFFFF",
     textAlign:"center"
-  },
-  backButton: {
-    width: 30,
-    resizeMode: "contain",
-    alignSelf: "center",
   },
   codeText: {
     fontFamily: "SFProDisplay-Bold",
@@ -115,12 +112,12 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   beginButton: {
-    marginTop: 10,
+    marginTop: hp('3%'),
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "#FFFFFF",
-    height: 45,
+    height: hp('8%'),
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch"
@@ -131,12 +128,12 @@ const styles = StyleSheet.create({
     color: "#006607",
   },
   waitingButton: {
-    marginTop: 10,
+    marginTop: hp('3%'),
     borderRadius: 15,
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    height: 45,
+    height: hp('8%'),
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "stretch"
