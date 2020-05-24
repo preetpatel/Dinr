@@ -42,11 +42,7 @@ export const ReadyScreen: React.FC = () => {
   };
 
   const countdownDone = () => {
-    navigation.navigate("SwipeScreen", {timer: 120, restaurantData: restaurantData});
-  };
-
-  const checkSessionReady = () => {
-    // TODO: Add logic to check if swiping session ready
+    navigation.navigate("SwipeScreen", {timer: 90, restaurantData: restaurantData});
   };
 
   useEffect(() => {
