@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import {useNavigation} from "@navigation/hooks/useNavigation";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {checkReadyToBegin, clientReadyToBegin, getRestaurantData} from "../api/api";
 
 export type ReadyScreenNavigationParams = {
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: "#006607",
-    padding: 40,
+    padding: wp('10%'),
   },
   singleElement: {
     justifyContent: "center"
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: "#FFFFFF",
-    marginTop: 20,
+    marginTop: hp('3%'),
   },
   burgers: {
     alignSelf: "center",
@@ -121,10 +122,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: hp('3%'),
   },
   textbox: {
-    width: 235,
+    width: '75%',
   },
   text: {
     fontFamily: "SFProDisplay-Bold",
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "#FFFFFF",
-    height: 45,
+    height: hp('7%'),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    height: 45,
+    height: hp('7%'),
     alignItems: "center",
     justifyContent: "center",
   },
