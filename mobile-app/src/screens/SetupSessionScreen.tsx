@@ -35,7 +35,7 @@ export const SetupSessionScreen: React.FC = () => {
   };
 
   const onContinuePress = async () => {
-    setLoadingData(true);
+  setLoadingData(true);
    let interactionData: any = await setupInteraction(lat, lon, getChosenCuisines(), priceLevel);
    navigation.navigate("WaitingScreen", {
      isHost: true,
@@ -106,12 +106,12 @@ export const SetupSessionScreen: React.FC = () => {
         </View>
       </View>
       <TouchableOpacity
-        disabled={!enableButton && !loadingData}
-        style={enableButton ? styles.buttonEnabled : styles.buttonDisabled}
+        disabled={!enableButton || loadingData}
+        style={enableButton && !loadingData ? styles.buttonEnabled : styles.buttonDisabled}
         onPress={onContinuePress}
       >
         <Text
-          style={enableButton ? styles.enabledButtonText :  styles.disabledButtonText}
+          style={enableButton && !loadingData ? styles.enabledButtonText :  styles.disabledButtonText}
         >
           {loadingData? "Just a sec" : "Invite Friends" }
         </Text>
