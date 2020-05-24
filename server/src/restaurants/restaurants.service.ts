@@ -26,10 +26,10 @@ export class RestaurantsService {
     // };
 
 
-    
+
     // From starstrike64@gmail.com
     protected headersRequest = {
-        'user-key': '793ca5c4494b3bf74b20eb8f4ebfcf43'
+        'user-key': '98334e87fff8e40beb83e1609e380766'
     };
 
     public async getRestaurantsForLocation(lat: number, lon: number): Promise<Restaurant[]> {
@@ -38,17 +38,17 @@ export class RestaurantsService {
 
         try {
             const response = await axios({
-                method: 'GET', 
-                url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`, 
+                method: 'GET',
+                url: `${this.baseAddress}/geocode?lat=${lat}&lon=${lon}`,
                 headers: this.headersRequest
             });
-    
+
             response.data.nearby_restaurants.forEach(location => {
                 restaurantsForLocation.push(this.setRestaurantInfo(location.restaurant));
             });
 
             return restaurantsForLocation;
-            
+
         } catch (error) {
             //Need to handle if get null back...
             return null;
@@ -74,7 +74,7 @@ export class RestaurantsService {
         restaurant.longitude = data.location.longitude;
 
         return restaurant;
-         
+
     }
 
 }

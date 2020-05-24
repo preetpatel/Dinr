@@ -63,7 +63,7 @@ export const getInteractionStatus = async (id: string) => {
         const result = await axios.get(url);
         return result.data;
     } catch (e) {
-        console.log("An error occurred getting the restaurant data")
+        console.log("An error occurred getting the interaction status")
     }
 }
 
@@ -73,6 +73,26 @@ export const startInteraction = async (id: string) => {
         const result = await axios.post(url);
         return result.data;
     } catch (e) {
-        console.log("An error occurred getting the restaurant data")
+        console.log("An error occurred starting the interaction")
+    }
+}
+
+export const clientReadyToBegin = async (id: string) => {
+    const url = `${BACKEND}/readyToBegin/` + id;
+    try {
+        const result = await axios.post(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred letting the server know that client was ready")
+    }
+}
+
+export const checkReadyToBegin = async (id: string) => {
+    const url = `${BACKEND}/readyToBegin/` + id;
+    try {
+        const result = await axios.get(url);
+        return result.data;
+    } catch (e) {
+        console.log("An error occurred getting sync status from the server")
     }
 }
