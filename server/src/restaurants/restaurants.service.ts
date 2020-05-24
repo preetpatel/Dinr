@@ -25,6 +25,25 @@ export class RestaurantsService {
     //     'user-key': 'baa2779d5950311549175b0e72973046'
     // };
 
+    //New keys
+    // protected headersRequest = {
+    //   'user-key': 'd4de29685bcde645296951ce55f9087e'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '5d1d0be91eb517099a9251e3650817aa'
+    // };
+    // protected headersRequest = {
+    //   'user-key': '2ae92573cefa5778388431b77ad60c86'
+    // };    
+    protected headersRequest = {
+      'user-key': '93987cb07ac2d02e65df4035980f54b6'
+    };
+
+
+
+
+    
+
 
 
     // From starstrike64@gmail.com
