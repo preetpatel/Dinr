@@ -11,7 +11,6 @@ export const setupInteraction = async (lat: number, lon: number, cuisines: strin
             cuisines: cuisines,
             priceLevel: priceLevel
         });
-        console.log(result.data);
         return result.data;
     } catch (e) {
         console.log("An error occurred " + e.message)
