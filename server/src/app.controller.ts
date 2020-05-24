@@ -48,12 +48,12 @@ export class AppController {
 
   @Get('/readyToBegin/:id')
   getReadyToBeginStatus(@Param() params) {
-    return this.appService.getMatchStatus(params.id)
+    return this.appService.getReadyToSwipeStatus(params.id)
   }
 
   @Post('/readyToBegin/:id')
   incrementReadyToBeginCount(@Param() params) {
-    return this.appService.getMatchStatus(params.id)
+    return this.appService.addClientReadyToSwipe(params.id)
   }
 
 }

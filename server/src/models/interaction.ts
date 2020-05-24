@@ -10,4 +10,5 @@ export class Interaction {
     lat: number;
     lon: number;
     matchingStarted: boolean;
+    clientsReadyToSwipe: number;
 }
