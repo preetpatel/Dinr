@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import { useNavigation } from "@navigation/hooks/useNavigation";
 import {getFriendsJoinedCount, getInteractionStatus, startInteraction} from "../api/api";
@@ -21,23 +21,16 @@ export const WaitingScreen: React.FC = () => {
   const intervalID = setInterval(async () => {
     const count = await getFriendsJoinedCount(joinCode);
     await setFriendsJoined(parseInt(count) -1);
+
+    if (!isHost) {
+      if (await getInteractionStatus(joinCode) === true) {
+        await beginMatchingPress();
+      }
+    }
   }, 500)
 
-  useEffect(() => {
-    let intID = setInterval(async () => {
-      if (!isHost) {
-        if (await getInteractionStatus(joinCode) === true) {
-          await beginMatchingPress();
-        }
-      }
-    }, 500);
-    return() => {
-      clearInterval(intID);
-    }
-  });
-
   const beginMatchingPress = async () => {
-    clearInterval(intervalID)
+    await clearInterval(intervalID)
     if(isHost) {
       await startInteraction(joinCode);
     }

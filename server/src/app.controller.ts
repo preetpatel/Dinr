@@ -46,6 +46,16 @@ export class AppController {
     return this.appService.getMatchStatus(params.id)
   }
 
+  @Get('/readyToBegin/:id')
+  getReadyToBeginStatus(@Param() params) {
+    return this.appService.getMatchStatus(params.id)
+  }
+
+  @Post('/readyToBegin/:id')
+  incrementReadyToBeginCount(@Param() params) {
+    return this.appService.getMatchStatus(params.id)
+  }
+
 }
 
 
