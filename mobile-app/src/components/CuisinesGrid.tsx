@@ -27,11 +27,13 @@ const CuisinesGrid = (props: CuisineGridProps) => {
             let marginRight = 7.5;
             let marginLeft = 7.5;
             if (index === numCols || index === 3 * numCols) {
-              marginLeft = 60;
+              marginLeft = 10;
             } else if (index === 0 || index === 2 * numCols) {
               marginLeft = 40;
             }
             if (index === numCols - 1 || index === 2 * numCols - 1 || index === 3 * numCols - 1 || index === 4 * numCols - 1) {
+              marginRight = 10;
+            } else if (index === 2 * numCols - 1 || index === 4 * numCols - 1) {
               marginRight = 40;
             }
 
